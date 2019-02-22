@@ -131,6 +131,7 @@ public class EmbeddedWebApplicationContext extends GenericWebApplicationContext 
 	protected void onRefresh() {
 		super.onRefresh();
 		try {
+			// 创建内置servlet容器
 			createEmbeddedServletContainer();
 		}
 		catch (Throwable ex) {
@@ -142,8 +143,10 @@ public class EmbeddedWebApplicationContext extends GenericWebApplicationContext 
 	@Override
 	protected void finishRefresh() {
 		super.finishRefresh();
+		// 调用startEmbeddedServletContainer方法
 		EmbeddedServletContainer localContainer = startEmbeddedServletContainer();
 		if (localContainer != null) {
+			// 发布EmbeddedServletContainerInitializedEvent事件
 			publishEvent(
 					new EmbeddedServletContainerInitializedEvent(this, localContainer));
 		}
@@ -158,13 +161,18 @@ public class EmbeddedWebApplicationContext extends GenericWebApplicationContext 
 	private void createEmbeddedServletContainer() {
 		EmbeddedServletContainer localContainer = this.embeddedServletContainer;
 		ServletContext localServletContext = getServletContext();
+		// 内置Servlet容器和ServletContext都还没初始化的时候执行
 		if (localContainer == null && localServletContext == null) {
+			// 从Spring容器中获取EmbeddedServletContainerFactory，如果EmbeddedServletContainerFactory不存在或者有多个的话会抛出异常中止程序
 			EmbeddedServletContainerFactory containerFactory = getEmbeddedServletContainerFactory();
+			// 获取Servlet初始化器并创建Servlet容器，依次调用Servlet初始化器中的onStartup方法
 			this.embeddedServletContainer = containerFactory
 					.getEmbeddedServletContainer(getSelfInitializer());
 		}
+		// 内置Servlet容器已经初始化但是ServletContext还没初始化的时候执行
 		else if (localServletContext != null) {
 			try {
+				// 对已经存在的Servlet容器依次调用Servlet初始化器中的onStartup方法
 				getSelfInitializer().onStartup(localServletContext);
 			}
 			catch (ServletException ex) {
@@ -201,6 +209,12 @@ public class EmbeddedWebApplicationContext extends GenericWebApplicationContext 
 	}
 
 	/**
+	 * getSelfInitializer方法获得的Servlet初始化器内部会去构造一个ServletContextInitializerBeans(Servlet初始化器的集合)，
+	 * ServletContextInitializerBeans构造的时候会去Spring容器中查找ServletContextInitializer类型的bean，其中ServletRegistrationBean、
+	 * FilterRegistrationBean、ServletListenerRegistrationBean会被找出(如果有定义)，这3种ServletContextInitializer会在onStartup方法中将
+	 * Servlet、Filter、Listener添加到Servlet容器中(如果我们只定义了Servlet、Filter或者Listener，ServletContextInitializerBeans内部会调用
+	 * addAdaptableBeans方法把它们包装成RegistrationBean)
+	 *
 	 * Returns the {@link ServletContextInitializer} that will be used to complete the
 	 * setup of this {@link WebApplicationContext}.
 	 * @return the self initializer
@@ -292,8 +306,10 @@ public class EmbeddedWebApplicationContext extends GenericWebApplicationContext 
 	}
 
 	private EmbeddedServletContainer startEmbeddedServletContainer() {
+		// 先得到在onRefresh方法中构造的Servlet容器embeddedServletContainer
 		EmbeddedServletContainer localContainer = this.embeddedServletContainer;
 		if (localContainer != null) {
+			// 启动
 			localContainer.start();
 		}
 		return localContainer;

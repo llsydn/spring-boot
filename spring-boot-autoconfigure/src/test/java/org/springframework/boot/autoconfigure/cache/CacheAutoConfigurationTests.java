@@ -1068,7 +1068,7 @@ public class CacheAutoConfigurationTests {
 
 		@Bean
 		Caffeine<Object, Object> cacheBuilder() {
-			return Caffeine.newBuilder().recordStats();
+			return null; // Caffeine.newBuilder().recordStats();
 		}
 
 	}

@@ -20,8 +20,8 @@ import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import org.springframework.boot.junit.runner.classpath.ClassPathExclusions;
-import org.springframework.boot.junit.runner.classpath.ModifiedClassPathRunner;
+// import org.springframework.boot.junit.runner.classpath.ClassPathExclusions;
+// import org.springframework.boot.junit.runner.classpath.ModifiedClassPathRunner;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -32,8 +32,8 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Andy Wilkinson
  */
-@RunWith(ModifiedClassPathRunner.class)
-@ClassPathExclusions("jackson-*.jar")
+// @RunWith(ModifiedClassPathRunner.class)
+// @ClassPathExclusions("jackson-*.jar")
 public class HttpMessageConvertersAutoConfigurationWithoutJacksonTests {
 
 	private AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();

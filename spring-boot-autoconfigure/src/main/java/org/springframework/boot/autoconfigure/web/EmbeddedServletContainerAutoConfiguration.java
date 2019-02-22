@@ -62,18 +62,20 @@ import org.springframework.util.ObjectUtils;
  */
 @AutoConfigureOrder(Ordered.HIGHEST_PRECEDENCE)
 @Configuration
-@ConditionalOnWebApplication
-@Import(BeanPostProcessorsRegistrar.class)
+@ConditionalOnWebApplication  // 在Web环境下才会起作用
+@Import(BeanPostProcessorsRegistrar.class) // 会Import一个内部类BeanPostProcessorsRegistrar
 public class EmbeddedServletContainerAutoConfiguration {
 
 	/**
 	 * Nested configuration if Tomcat is being used.
 	 */
 	@Configuration
+	// Tomcat类和Servlet类必须在classloader中存在
 	@ConditionalOnClass({ Servlet.class, Tomcat.class })
+	// 当前Spring容器中不存在EmbeddedServletContainerFactory类型的实例
 	@ConditionalOnMissingBean(value = EmbeddedServletContainerFactory.class, search = SearchStrategy.CURRENT)
 	public static class EmbeddedTomcat {
-
+		// 上述条件注解成立的话就会构造TomcatEmbeddedServletContainerFactory这个EmbeddedServletContainerFactory
 		@Bean
 		public TomcatEmbeddedServletContainerFactory tomcatEmbeddedServletContainerFactory() {
 			return new TomcatEmbeddedServletContainerFactory();
@@ -85,11 +87,13 @@ public class EmbeddedServletContainerAutoConfiguration {
 	 * Nested configuration if Jetty is being used.
 	 */
 	@Configuration
+	// Server类、Servlet类、Loader类以及WebAppContext类必须在classloader中存在
 	@ConditionalOnClass({ Servlet.class, Server.class, Loader.class,
 			WebAppContext.class })
+	// 当前Spring容器中不存在EmbeddedServletContainerFactory类型的实例
 	@ConditionalOnMissingBean(value = EmbeddedServletContainerFactory.class, search = SearchStrategy.CURRENT)
 	public static class EmbeddedJetty {
-
+		// 上述条件注解成立的话就会构造JettyEmbeddedServletContainerFactory这个EmbeddedServletContainerFactory
 		@Bean
 		public JettyEmbeddedServletContainerFactory jettyEmbeddedServletContainerFactory() {
 			return new JettyEmbeddedServletContainerFactory();
@@ -101,10 +105,12 @@ public class EmbeddedServletContainerAutoConfiguration {
 	 * Nested configuration if Undertow is being used.
 	 */
 	@Configuration
+	// Undertow类、Servlet类、以及SslClientAuthMode类必须在classloader中存在
 	@ConditionalOnClass({ Servlet.class, Undertow.class, SslClientAuthMode.class })
+	// 当前Spring容器中不存在EmbeddedServletContainerFactory类型的实例
 	@ConditionalOnMissingBean(value = EmbeddedServletContainerFactory.class, search = SearchStrategy.CURRENT)
 	public static class EmbeddedUndertow {
-
+		// 上述条件注解成立的话就会构造JettyEmbeddedServletContainerFactory这个EmbeddedServletContainerFactory
 		@Bean
 		public UndertowEmbeddedServletContainerFactory undertowEmbeddedServletContainerFactory() {
 			return new UndertowEmbeddedServletContainerFactory();
@@ -112,6 +118,8 @@ public class EmbeddedServletContainerAutoConfiguration {
 
 	}
 
+	// 在EmbeddedServletContainerAutoConfiguration自动化配置类中被导入，实现了BeanFactoryAware接口(BeanFactory会被自动注入进来)和
+	// ImportBeanDefinitionRegistrar接口(会被ConfigurationClassBeanDefinitionReader解析并注册到Spring容器中)
 	/**
 	 * Registers a {@link EmbeddedServletContainerCustomizerBeanPostProcessor}. Registered
 	 * via {@link ImportBeanDefinitionRegistrar} for early registration.
@@ -134,6 +142,11 @@ public class EmbeddedServletContainerAutoConfiguration {
 			if (this.beanFactory == null) {
 				return;
 			}
+			// 如果Spring容器中不存在EmbeddedServletContainerCustomizerBeanPostProcessor类型的bean
+			// 注册一个EmbeddedServletContainerCustomizerBeanPostProcessor
+			// EmbeddedServletContainerCustomizerBeanPostProcessor是一个BeanPostProcessor，它在postProcessBeforeInitialization过程中去
+			// 寻找Spring容器中EmbeddedServletContainerCustomizer类型的bean，并依次调用EmbeddedServletContainerCustomizer接口的customize方法做一些定制化：
+
 			registerSyntheticBeanIfMissing(registry,
 					"embeddedServletContainerCustomizerBeanPostProcessor",
 					EmbeddedServletContainerCustomizerBeanPostProcessor.class);

@@ -160,20 +160,17 @@ public class AutoConfigurationSorterTests {
 		for (String className : classNames) {
 			Class<?> type = ClassUtils.forName(className, null);
 			properties.put(type.getName(), "");
-			AutoConfigureOrder order = type
-					.getDeclaredAnnotation(AutoConfigureOrder.class);
+			AutoConfigureOrder order = null; //type.getDeclaredAnnotation(AutoConfigureOrder.class);
 			if (order != null) {
 				properties.put(className + ".AutoConfigureOrder",
 						String.valueOf(order.value()));
 			}
-			AutoConfigureBefore autoConfigureBefore = type
-					.getDeclaredAnnotation(AutoConfigureBefore.class);
+			AutoConfigureBefore autoConfigureBefore = null; //type.getDeclaredAnnotation(AutoConfigureBefore.class);
 			if (autoConfigureBefore != null) {
 				properties.put(className + ".AutoConfigureBefore",
 						merge(autoConfigureBefore.value(), autoConfigureBefore.name()));
 			}
-			AutoConfigureAfter autoConfigureAfter = type
-					.getDeclaredAnnotation(AutoConfigureAfter.class);
+			AutoConfigureAfter autoConfigureAfter = null; //type.getDeclaredAnnotation(AutoConfigureAfter.class);
 			if (autoConfigureAfter != null) {
 				properties.put(className + ".AutoConfigureAfter",
 						merge(autoConfigureAfter.value(), autoConfigureAfter.name()));

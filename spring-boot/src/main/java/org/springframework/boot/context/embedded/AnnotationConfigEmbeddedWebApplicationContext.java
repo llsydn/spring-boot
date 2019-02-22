@@ -63,7 +63,17 @@ public class AnnotationConfigEmbeddedWebApplicationContext
 	 * refreshed}.
 	 */
 	public AnnotationConfigEmbeddedWebApplicationContext() {
+		/**
+		 * 这个类顾名思义是一个reader，一个读取器
+		 * 读取什么呢？AnnotatedBeanDefinitionReader意思是读取一个被加了注解的bean
+		 * 这个类在构造方法中实例化的
+		 * 作用：读取到一个加了注解的类，并把他转为BeanDefinition
+		 */
 		this.reader = new AnnotatedBeanDefinitionReader(this);
+		/**
+		 * 顾名思义，是一个扫描器，扫描所有加了注解的bean
+		 * 这个类在构造方法中实例化的
+		 */
 		this.scanner = new ClassPathBeanDefinitionScanner(this);
 	}
 
@@ -178,10 +188,13 @@ public class AnnotationConfigEmbeddedWebApplicationContext
 
 	@Override
 	protected void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) {
+		// 调用父类EmbeddedWebApplicationContext的实现
 		super.postProcessBeanFactory(beanFactory);
+		// 查看basePackages属性，如果设置了会使用ClassPathBeanDefinitionScanner去扫描basePackages包下的bean并注册
 		if (this.basePackages != null && this.basePackages.length > 0) {
 			this.scanner.scan(this.basePackages);
 		}
+		// 查看annotatedClasses属性，如果设置了会使用AnnotatedBeanDefinitionReader去注册这些bean
 		if (this.annotatedClasses != null && this.annotatedClasses.length > 0) {
 			this.reader.register(this.annotatedClasses);
 		}

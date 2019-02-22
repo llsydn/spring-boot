@@ -246,8 +246,21 @@ public class SpringApplication {
 			this.sources.addAll(Arrays.asList(sources));
 		}
 		this.webEnvironment = deduceWebEnvironment();
+		// initializer 初始化器
+		// 默认：6个initializer（spring-boot-1.5.9.RELEASE.jar， spring-boot-autoconfigure-1.5.9.RELEASE.jar）
+		// 初始化器(initializers)是Spring Boot通过读取每个jar包下的/META-INF/spring.factories文件中的配置获取的。
+		// 每一个initailizer都是一个实现了ApplicationContextInitializer接口的实例。
+		// ApplicationContextInitializer是Spring IOC容器中提供的一个接口：
+		// ApplicationContextInitializer是一个回调接口，它会在ConfigurableApplicationContext的refresh()方法调用之前被调用,做一些容器的初始化工作
 		setInitializers((Collection) getSpringFactoriesInstances(
 				ApplicationContextInitializer.class));
+
+		// listener 监听器
+		// 监听器是一个专门用于对其他对象身上发生的事件或状态改变进行监听和相应处理的对象，当被监视的对象发生情况时，立即采取相应的行动
+		// 从spring.factories文件中找出key为ApplicationListener的类并实例化后设置到SpringApplication的listeners属性中。
+		// 这个过程就是找出所有的应用程序事件监听器
+		// 这里的应用程序事件(ApplicationEvent)
+		// 有应用程序启动事件(ApplicationStartedEvent)，失败事件(ApplicationFailedEvent)，准备事件(ApplicationPreparedEvent)等。
 		setListeners((Collection) getSpringFactoriesInstances(ApplicationListener.class));
 		this.mainApplicationClass = deduceMainApplicationClass();
 	}
@@ -283,31 +296,43 @@ public class SpringApplication {
 	 * @return a running {@link ApplicationContext}
 	 */
 	public ConfigurableApplicationContext run(String... args) {
-		StopWatch stopWatch = new StopWatch();
-		stopWatch.start();
+		StopWatch stopWatch = new StopWatch(); // 构造一个任务执行观察器
+		stopWatch.start(); // 开始执行，记录开始时间
 		ConfigurableApplicationContext context = null;
 		FailureAnalyzers analyzers = null;
 		configureHeadlessProperty();
-		SpringApplicationRunListeners listeners = getRunListeners(args);
+		SpringApplicationRunListeners listeners = getRunListeners(args); //获取SpringApplicationRunListeners,内部只有一个EventPublishingRunListener
+		// 上面分析过，会封装成SpringApplicationEvent事件然后广播出去给SpringApplication中的listeners所监听
+		// 这里接受ApplicationStartedEvent事件的listener会执行相应的操作
 		listeners.starting();
 		try {
+			// 构造一个应用程序参数持有类
 			ApplicationArguments applicationArguments = new DefaultApplicationArguments(
 					args);
+			// 准备环境
 			ConfigurableEnvironment environment = prepareEnvironment(listeners,
 					applicationArguments);
+			// 控制台打印Banner
 			Banner printedBanner = printBanner(environment);
+			// 创建Spring容器
 			context = createApplicationContext();
+			// 异常处理机制，用于分析故障并提供可以显示给用户的诊断信息。
 			analyzers = new FailureAnalyzers(context);
+			// 准备context，prepareContext方法中将会执行每个initializers的逻辑
 			prepareContext(context, environment, listeners, applicationArguments,
 					printedBanner);
 			refreshContext(context);
+			// 容器创建完成之后执行额外一些操作
 			afterRefresh(context, applicationArguments);
+			// 广播出ApplicationReadyEvent事件给相应的监听器执行
 			listeners.finished(context, null);
+			// 执行结束，记录执行时间
 			stopWatch.stop();
 			if (this.logStartupInfo) {
 				new StartupInfoLogger(this.mainApplicationClass)
 						.logStarted(getApplicationLog(), stopWatch);
 			}
+			// 返回Spring容器
 			return context;
 		}
 		catch (Throwable ex) {
@@ -335,6 +360,7 @@ public class SpringApplication {
 			ApplicationArguments applicationArguments, Banner printedBanner) {
 		context.setEnvironment(environment);
 		postProcessApplicationContext(context);
+		// 执行initializer初始化器（给context添加beanFactoryPostProcessor，listener等）
 		applyInitializers(context);
 		listeners.contextPrepared(context);
 		if (this.logStartupInfo) {
@@ -353,6 +379,7 @@ public class SpringApplication {
 		Set<Object> sources = getSources();
 		Assert.notEmpty(sources, "Sources must not be empty");
 		load(context, sources.toArray(new Object[sources.size()]));
+		// 执行一个监听事件
 		listeners.contextLoaded(context);
 	}
 
@@ -553,6 +580,7 @@ public class SpringApplication {
 	}
 
 	/**
+	 * 执行initializer初始化器。在上下文之前应用任何{@link ApplicationContextInitializer}s 刷新。
 	 * Apply any {@link ApplicationContextInitializer}s to the context before it is
 	 * refreshed.
 	 * @param context the configured ApplicationContext (not refreshed yet)

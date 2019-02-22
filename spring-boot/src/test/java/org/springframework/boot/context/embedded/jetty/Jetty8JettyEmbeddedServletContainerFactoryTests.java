@@ -28,9 +28,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import org.springframework.boot.context.embedded.EmbeddedServletContainer;
-import org.springframework.boot.junit.runner.classpath.ClassPathExclusions;
-import org.springframework.boot.junit.runner.classpath.ClassPathOverrides;
-import org.springframework.boot.junit.runner.classpath.ModifiedClassPathRunner;
+// import org.springframework.boot.junit.runner.classpath.ClassPathExclusions;
+// import org.springframework.boot.junit.runner.classpath.ClassPathOverrides;
+// import org.springframework.boot.junit.runner.classpath.ModifiedClassPathRunner;
 import org.springframework.boot.web.servlet.ErrorPage;
 import org.springframework.boot.web.servlet.ServletContextInitializer;
 import org.springframework.http.ResponseEntity;
@@ -45,10 +45,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Andy Wilkinson
  */
-@RunWith(ModifiedClassPathRunner.class)
-@ClassPathExclusions({ "jetty-*.jar", "tomcat-embed-jasper-*.jar" })
-@ClassPathOverrides({ "org.eclipse.jetty:jetty-servlets:8.1.15.v20140411",
-		"org.eclipse.jetty:jetty-webapp:8.1.15.v20140411" })
+// @RunWith(ModifiedClassPathRunner.class)
+// @ClassPathExclusions({ "jetty-*.jar", "tomcat-embed-jasper-*.jar" })
+// @ClassPathOverrides({ "org.eclipse.jetty:jetty-servlets:8.1.15.v20140411", "org.eclipse.jetty:jetty-webapp:8.1.15.v20140411" })
 public class Jetty8JettyEmbeddedServletContainerFactoryTests {
 
 	@Test

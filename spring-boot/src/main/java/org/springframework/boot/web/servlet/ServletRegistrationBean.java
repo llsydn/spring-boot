@@ -35,6 +35,8 @@ import org.springframework.util.Assert;
 import org.springframework.util.ObjectUtils;
 
 /**
+ * ServletRegistrationBean实现了ServletContextInitializer接口，是个Servlet初始化器，onStartup方法代码：
+ *
  * A {@link ServletContextInitializer} to register {@link Servlet}s in a Servlet 3.0+
  * container. Similar to the {@link ServletContext#addServlet(String, Servlet)
  * registration} features provided by {@link ServletContext} but with a Spring Bean
@@ -188,12 +190,14 @@ public class ServletRegistrationBean extends RegistrationBean {
 			return;
 		}
 		logger.info("Mapping servlet: '" + name + "' to " + this.urlMappings);
+		// 把servlet添加到Servlet容器中，Servlet容器启动的时候会加载这个Servlet
 		Dynamic added = servletContext.addServlet(name, this.servlet);
 		if (added == null) {
 			logger.info("Servlet " + name + " was not registered "
 					+ "(possibly already registered?)");
 			return;
 		}
+		// 进行Servlet的一些配置，比如urlMapping，loadOnStartup等
 		configure(added);
 	}
 

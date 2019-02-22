@@ -18,7 +18,7 @@ package org.springframework.boot.test.mock.mockito;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
-import java.lang.annotation.Repeatable;
+// import java.lang.annotation.Repeatable;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
@@ -93,7 +93,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 @Target({ ElementType.TYPE, ElementType.FIELD })
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-@Repeatable(MockBeans.class)
+// @Repeatable(MockBeans.class)
 public @interface MockBean {
 
 	/**

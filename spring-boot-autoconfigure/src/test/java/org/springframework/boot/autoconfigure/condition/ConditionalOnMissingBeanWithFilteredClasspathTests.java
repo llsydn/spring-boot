@@ -20,8 +20,8 @@ import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import org.springframework.boot.junit.runner.classpath.ClassPathExclusions;
-import org.springframework.boot.junit.runner.classpath.ModifiedClassPathRunner;
+// import org.springframework.boot.junit.runner.classpath.ClassPathExclusions;
+// import org.springframework.boot.junit.runner.classpath.ModifiedClassPathRunner;
 import org.springframework.cache.caffeine.CaffeineCacheManager;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -35,8 +35,8 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Stephane Nicoll
  * @author Andy Wilkinson
  */
-@RunWith(ModifiedClassPathRunner.class)
-@ClassPathExclusions("spring-context-support-*.jar")
+// @RunWith(ModifiedClassPathRunner.class)
+// @ClassPathExclusions("spring-context-support-*.jar")
 public class ConditionalOnMissingBeanWithFilteredClasspathTests {
 
 	private final AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();

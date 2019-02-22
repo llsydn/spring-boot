@@ -21,8 +21,8 @@ import org.junit.runner.JUnitCore;
 import org.junit.runner.Result;
 import org.junit.runner.RunWith;
 
-import org.springframework.boot.junit.runner.classpath.ClassPathExclusions;
-import org.springframework.boot.junit.runner.classpath.ModifiedClassPathRunner;
+// import org.springframework.boot.junit.runner.classpath.ClassPathExclusions;
+// import org.springframework.boot.junit.runner.classpath.ModifiedClassPathRunner;
 import org.springframework.util.ClassUtils;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -32,8 +32,8 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Andy Wilkinson
  */
-@RunWith(ModifiedClassPathRunner.class)
-@ClassPathExclusions("jackson-*.jar")
+// @RunWith(ModifiedClassPathRunner.class)
+// @ClassPathExclusions("jackson-*.jar")
 public class RestClientTestWithoutJacksonIntegrationTests {
 
 	@Test

@@ -20,8 +20,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import org.springframework.boot.junit.runner.classpath.ClassPathOverrides;
-import org.springframework.boot.junit.runner.classpath.ModifiedClassPathRunner;
+// import org.springframework.boot.junit.runner.classpath.ClassPathOverrides;
+// import org.springframework.boot.junit.runner.classpath.ModifiedClassPathRunner;
 import org.springframework.boot.test.rule.OutputCapture;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -31,8 +31,8 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Andy Wilkinson
  */
-@RunWith(ModifiedClassPathRunner.class)
-@ClassPathOverrides("org.json:json:20140107")
+// @RunWith(ModifiedClassPathRunner.class)
+// @ClassPathOverrides("org.json:json:20140107")
 public class DuplicateJsonObjectContextCustomizerFactoryTests {
 
 	@Rule

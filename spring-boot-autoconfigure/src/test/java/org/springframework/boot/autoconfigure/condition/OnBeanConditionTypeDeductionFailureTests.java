@@ -21,8 +21,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import org.springframework.boot.autoconfigure.condition.OnBeanCondition.BeanTypeDeductionException;
-import org.springframework.boot.junit.runner.classpath.ClassPathExclusions;
-import org.springframework.boot.junit.runner.classpath.ModifiedClassPathRunner;
+// import org.springframework.boot.junit.runner.classpath.ClassPathExclusions;
+// import org.springframework.boot.junit.runner.classpath.ModifiedClassPathRunner;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -38,8 +38,8 @@ import static org.junit.Assert.fail;
  *
  * @author Andy Wilkinson
  */
-@RunWith(ModifiedClassPathRunner.class)
-@ClassPathExclusions("jackson-core-*.jar")
+// @RunWith(ModifiedClassPathRunner.class)
+// @ClassPathExclusions("jackson-core-*.jar")
 public class OnBeanConditionTypeDeductionFailureTests {
 
 	@Test

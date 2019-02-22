@@ -121,25 +121,32 @@ public class LogbackLoggingSystem extends Slf4JLoggingSystem {
 		}
 	}
 
+	// 没找到日志配置文件的话使用loadDefaults方法加载
 	@Override
 	protected void loadDefaults(LoggingInitializationContext initializationContext,
 			LogFile logFile) {
+		// 获取slf4j内部的LoggerContext
 		LoggerContext context = getLoggerContext();
 		stopAndReset(context);
 		LogbackConfigurator configurator = new LogbackConfigurator(context);
 		context.putProperty("LOG_LEVEL_PATTERN",
 				initializationContext.getEnvironment().resolvePlaceholders(
 						"${logging.pattern.level:${LOG_LEVEL_PATTERN:%5p}}"));
+		// 构造默认的console Appender。如果logFile不为空，还会构造file Appender
 		new DefaultLogbackConfiguration(initializationContext, logFile)
 				.apply(configurator);
 		context.setPackagingDataEnabled(true);
 	}
 
+	// logback具体的初始化加载过程
 	@Override
 	protected void loadConfiguration(LoggingInitializationContext initializationContext,
 			String location, LogFile logFile) {
+		// 调用父类Slf4JLoggingSystem的loadConfiguration方法
 		super.loadConfiguration(initializationContext, location, logFile);
+		// 获取slf4j内部的LoggerContext
 		LoggerContext loggerContext = getLoggerContext();
+		// logback环境的一些配置配置处理
 		stopAndReset(loggerContext);
 		try {
 			configureByResourceUrl(initializationContext, loggerContext,
@@ -192,6 +199,7 @@ public class LogbackLoggingSystem extends Slf4JLoggingSystem {
 		loggerContext.addListener(levelChangePropagator);
 	}
 
+	// logback的清除工作
 	@Override
 	public void cleanUp() {
 		LoggerContext context = getLoggerContext();
@@ -247,6 +255,7 @@ public class LogbackLoggingSystem extends Slf4JLoggingSystem {
 		return LEVELS.getSupported();
 	}
 
+	// 动态设置logger的level
 	@Override
 	public void setLogLevel(String loggerName, LogLevel level) {
 		ch.qos.logback.classic.Logger logger = getLogger(loggerName);
@@ -255,6 +264,8 @@ public class LogbackLoggingSystem extends Slf4JLoggingSystem {
 		}
 	}
 
+	// 清除后的一些工作
+	// ShutdownHandler会调用LoggerContext的stop方法
 	@Override
 	public Runnable getShutdownHandler() {
 		return new ShutdownHandler();

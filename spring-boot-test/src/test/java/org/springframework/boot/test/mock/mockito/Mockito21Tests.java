@@ -22,8 +22,8 @@ import org.junit.runner.Result;
 import org.junit.runner.RunWith;
 import org.junit.runner.notification.Failure;
 
-import org.springframework.boot.junit.runner.classpath.ClassPathOverrides;
-import org.springframework.boot.junit.runner.classpath.ModifiedClassPathRunner;
+// import org.springframework.boot.junit.runner.classpath.ClassPathOverrides;
+// import org.springframework.boot.junit.runner.classpath.ModifiedClassPathRunner;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -32,8 +32,8 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Andy Wilkinson
  */
-@RunWith(ModifiedClassPathRunner.class)
-@ClassPathOverrides("org.mockito:mockito-core:2.1.0")
+// @RunWith(ModifiedClassPathRunner.class)
+// @ClassPathOverrides("org.mockito:mockito-core:2.1.0")
 public class Mockito21Tests {
 
 	@Test

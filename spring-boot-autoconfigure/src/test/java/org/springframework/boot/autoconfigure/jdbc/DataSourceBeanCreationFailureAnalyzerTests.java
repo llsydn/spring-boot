@@ -22,8 +22,8 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.BeanCreationException;
 import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 import org.springframework.boot.diagnostics.FailureAnalysis;
-import org.springframework.boot.junit.runner.classpath.ClassPathExclusions;
-import org.springframework.boot.junit.runner.classpath.ModifiedClassPathRunner;
+// import org.springframework.boot.junit.runner.classpath.ClassPathExclusions;
+// import org.springframework.boot.junit.runner.classpath.ModifiedClassPathRunner;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Configuration;
 
@@ -34,8 +34,8 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Andy Wilkinson
  */
-@RunWith(ModifiedClassPathRunner.class)
-@ClassPathExclusions({ "h2-*.jar", "hsqldb-*.jar" })
+// @RunWith(ModifiedClassPathRunner.class)
+// @ClassPathExclusions({ "h2-*.jar", "hsqldb-*.jar" })
 public class DataSourceBeanCreationFailureAnalyzerTests {
 
 	@Test

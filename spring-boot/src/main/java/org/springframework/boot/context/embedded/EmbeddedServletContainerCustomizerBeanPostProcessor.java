@@ -55,6 +55,10 @@ public class EmbeddedServletContainerCustomizerBeanPostProcessor
 	@Override
 	public Object postProcessBeforeInitialization(Object bean, String beanName)
 			throws BeansException {
+		// 在Spring容器中寻找ConfigurableEmbeddedServletContainer类型的bean，SpringBoot内部的3种内置Servlet容器工厂都实现了这个接口，
+		// 该接口的作用就是进行Servlet容器的配置：
+		// 比如添加Servlet初始化器addInitializers、添加错误页addErrorPages、设置session超时时间setSessionTimeout、设置端口setPort等等
+		// SpringBoot内置了一些EmbeddedServletContainerCustomizer，比如ErrorPageCustomizer、ServerProperties、TomcatWebSocketContainerCustomizer等
 		if (bean instanceof ConfigurableEmbeddedServletContainer) {
 			postProcessBeforeInitialization((ConfigurableEmbeddedServletContainer) bean);
 		}
@@ -70,6 +74,7 @@ public class EmbeddedServletContainerCustomizerBeanPostProcessor
 	private void postProcessBeforeInitialization(
 			ConfigurableEmbeddedServletContainer bean) {
 		for (EmbeddedServletContainerCustomizer customizer : getCustomizers()) {
+			// 遍历获取的每个定制化器，并调用customize方法进行一些定制
 			customizer.customize(bean);
 		}
 	}
@@ -78,11 +83,14 @@ public class EmbeddedServletContainerCustomizerBeanPostProcessor
 		if (this.customizers == null) {
 			// Look up does not include the parent context
 			this.customizers = new ArrayList<EmbeddedServletContainerCustomizer>(
+					// 找出Spring容器中EmbeddedServletContainerCustomizer类型的bean
 					this.beanFactory
 							.getBeansOfType(EmbeddedServletContainerCustomizer.class,
 									false, false)
 							.values());
+			// 定制化器做排序
 			Collections.sort(this.customizers, AnnotationAwareOrderComparator.INSTANCE);
+			// 设置定制化器到属性中
 			this.customizers = Collections.unmodifiableList(this.customizers);
 		}
 		return this.customizers;

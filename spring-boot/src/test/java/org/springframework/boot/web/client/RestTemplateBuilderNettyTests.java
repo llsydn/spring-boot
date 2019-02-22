@@ -19,8 +19,8 @@ package org.springframework.boot.web.client;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import org.springframework.boot.junit.runner.classpath.ClassPathExclusions;
-import org.springframework.boot.junit.runner.classpath.ModifiedClassPathRunner;
+// import org.springframework.boot.junit.runner.classpath.ClassPathExclusions;
+// import org.springframework.boot.junit.runner.classpath.ModifiedClassPathRunner;
 import org.springframework.http.client.ClientHttpRequestFactory;
 import org.springframework.http.client.Netty4ClientHttpRequestFactory;
 import org.springframework.test.util.ReflectionTestUtils;
@@ -33,8 +33,8 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Andy Wilkinson
  */
-@RunWith(ModifiedClassPathRunner.class)
-@ClassPathExclusions({ "httpclient-*.jar", "okhttp-*.jar" })
+// @RunWith(ModifiedClassPathRunner.class)
+// @ClassPathExclusions({ "httpclient-*.jar", "okhttp-*.jar" })
 public class RestTemplateBuilderNettyTests {
 
 	@Test

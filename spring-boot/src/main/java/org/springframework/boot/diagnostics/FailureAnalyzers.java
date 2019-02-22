@@ -67,6 +67,7 @@ public final class FailureAnalyzers {
 		Assert.notNull(context, "Context must not be null");
 		this.classLoader = (classLoader == null ? context.getClassLoader() : classLoader);
 		this.analyzers = loadFailureAnalyzers(this.classLoader);
+		// 这个方法就是发初始化的FailureAnalyzer对象，如果是BeanFactoryAware类型的，则调用其setBeanFactory为context
 		prepareFailureAnalyzers(this.analyzers, context);
 	}
 

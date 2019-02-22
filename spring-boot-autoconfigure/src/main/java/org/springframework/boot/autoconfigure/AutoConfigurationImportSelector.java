@@ -91,16 +91,24 @@ public class AutoConfigurationImportSelector
 		try {
 			AutoConfigurationMetadata autoConfigurationMetadata = AutoConfigurationMetadataLoader
 					.loadMetadata(this.beanClassLoader);
+			// 获取注解的属性
 			AnnotationAttributes attributes = getAttributes(annotationMetadata);
+			// 读取spring.factories属性文件中的数据
 			List<String> configurations = getCandidateConfigurations(annotationMetadata,
 					attributes);
+			// 删除重复的配置类
 			configurations = removeDuplicates(configurations);
+			// 配置类做排序
 			configurations = sort(configurations, autoConfigurationMetadata);
+			// 找到@EnableAutoConfiguration注解中定义的需要被过滤的配置类
 			Set<String> exclusions = getExclusions(annotationMetadata, attributes);
 			checkExcludedClasses(configurations, exclusions);
+			// 删除这些需要被过滤的配置类
 			configurations.removeAll(exclusions);
 			configurations = filter(configurations, autoConfigurationMetadata);
+			// 记录配置类的处理信息到ConditionEvaluationReport中
 			fireAutoConfigurationImportEvents(configurations, exclusions);
+			// 返回最终得到的自动化配置类
 			return configurations.toArray(new String[configurations.size()]);
 		}
 		catch (IOException ex) {
@@ -148,6 +156,8 @@ public class AutoConfigurationImportSelector
 	 */
 	protected List<String> getCandidateConfigurations(AnnotationMetadata metadata,
 			AnnotationAttributes attributes) {
+		// 调用SpringFactoriesLoader的loadFactoryNames静态方法
+		// getSpringFactoriesLoaderFactoryClass方法返回的是EnableAutoConfiguration类对象
 		List<String> configurations = SpringFactoriesLoader.loadFactoryNames(
 				getSpringFactoriesLoaderFactoryClass(), getBeanClassLoader());
 		Assert.notEmpty(configurations,

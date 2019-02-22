@@ -78,6 +78,9 @@ import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 
 /**
+ * 定制器比如ServerProperties表示服务端的一些配置，以server为前缀，比如有server.port、server.contextPath、server.displayName等，
+ * 它同时也实现了EmbeddedServletContainerCustomizer接口。
+ *
  * {@link ConfigurationProperties} for a web server (e.g. port and path settings). Will be
  * used to customize an {@link EmbeddedServletContainerFactory} when an
  * {@link EmbeddedServletContainerCustomizerBeanPostProcessor} is active.
@@ -185,8 +188,14 @@ public class ServerProperties
 		this.environment = environment;
 	}
 
+	/**
+	 * 定制器比如ServerProperties表示服务端的一些配置，以server为前缀，比如有server.port、server.contextPath、server.displayName等，
+	 * 它同时也实现了EmbeddedServletContainerCustomizer接口，其中customize方法的一部分代码如下：
+	 */
 	@Override
 	public void customize(ConfigurableEmbeddedServletContainer container) {
+		// 3种ServletContainerFactory都实现了ConfigurableEmbeddedServletContainer接口，所以下面的这些设置相当于对ServletContainerFactory进行设置
+		// 如果配置了端口信息
 		if (getPort() != null) {
 			container.setPort(getPort());
 		}
@@ -196,9 +205,11 @@ public class ServerProperties
 		if (getContextPath() != null) {
 			container.setContextPath(getContextPath());
 		}
+		// 如果配置了displayName
 		if (getDisplayName() != null) {
 			container.setDisplayName(getDisplayName());
 		}
+		// 如果配置了server.session.timeout，session超时时间。注意：这里的Session指的是ServerProperties的内部静态类Session
 		if (getSession().getTimeout() != null) {
 			container.setSessionTimeout(getSession().getTimeout());
 		}
@@ -214,20 +225,27 @@ public class ServerProperties
 			container.setCompression(getCompression());
 		}
 		container.setServerHeader(getServerHeader());
+		// 如果使用的是Tomcat内置Servlet容器，设置对应的Tomcat配置
 		if (container instanceof TomcatEmbeddedServletContainerFactory) {
 			getTomcat().customizeTomcat(this,
 					(TomcatEmbeddedServletContainerFactory) container);
 		}
+		// 如果使用的是Jetty内置Servlet容器，设置对应的Tomcat配置
 		if (container instanceof JettyEmbeddedServletContainerFactory) {
 			getJetty().customizeJetty(this,
 					(JettyEmbeddedServletContainerFactory) container);
 		}
 
+		// 如果使用的是Undertow内置Servlet容器，设置对应的Tomcat配置
 		if (container instanceof UndertowEmbeddedServletContainerFactory) {
 			getUndertow().customizeUndertow(this,
 					(UndertowEmbeddedServletContainerFactory) container);
 		}
+		// 添加SessionConfiguringInitializer这个Servlet初始化器
+		// SessionConfiguringInitializer初始化器的作用是基于ServerProperties的内部静态类Session设置Servlet中session和cookie的配置
 		container.addInitializers(new SessionConfiguringInitializer(this.session));
+		// 添加InitParameterConfiguringServletContextInitializer初始化器
+		// InitParameterConfiguringServletContextInitializer初始化器的作用是基于ServerProperties的contextParameters配置设置到ServletContext的init param中
 		container.addInitializers(new InitParameterConfiguringServletContextInitializer(
 				getContextParameters()));
 	}

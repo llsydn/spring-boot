@@ -22,8 +22,8 @@ import org.junit.runner.RunWith;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.diagnostics.FailureAnalysis;
-import org.springframework.boot.junit.runner.classpath.ClassPathExclusions;
-import org.springframework.boot.junit.runner.classpath.ModifiedClassPathRunner;
+// import org.springframework.boot.junit.runner.classpath.ClassPathExclusions;
+// import org.springframework.boot.junit.runner.classpath.ModifiedClassPathRunner;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -34,8 +34,8 @@ import static org.junit.Assert.fail;
  *
  * @author Andy Wilkinson
  */
-@RunWith(ModifiedClassPathRunner.class)
-@ClassPathExclusions("hibernate-validator-*.jar")
+// @RunWith(ModifiedClassPathRunner.class)
+// @ClassPathExclusions("hibernate-validator-*.jar")
 public class ValidationExceptionFailureAnalyzerTests {
 
 	@Test

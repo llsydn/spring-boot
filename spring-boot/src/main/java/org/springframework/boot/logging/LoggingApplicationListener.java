@@ -205,26 +205,45 @@ public class LoggingApplicationListener implements GenericApplicationListener {
 
 	@Override
 	public void onApplicationEvent(ApplicationEvent event) {
+		// 1.SpringApplication的run方法执行的时候触发该事件
 		if (event instanceof ApplicationStartingEvent) {
+			// onApplicationStartingEvent方法内部会先得到LoggingSystem，然后调用beforeInitialize方法
 			onApplicationStartingEvent((ApplicationStartingEvent) event);
 		}
+		// 2.环境信息准备好，ApplicationContext创建之前触发该事件
 		else if (event instanceof ApplicationEnvironmentPreparedEvent) {
+			// onApplicationEnvironmentPreparedEvent方法内部会做一下几个事情
+			// 1. 读取配置文件中"logging."开头的配置，比如logging.pattern.level, logging.pattern.console等设置到系统属性中
+			// 2. 构造一个LogFile(LogFile是对日志对外输出文件的封装)，使用LogFile的静态方法get构造，会使用配置文件中logging.file和logging.path配置构造
+			// 3. 判断配置中是否配置了debug并为true，如果是，设置level的DEBUG，然后继续查看是否配置了trace并为true，如果是，设置level的TRACE
+			// 4. 构造LoggingInitializationContext，查看是否配置了logging.config，如有配置，调用LoggingSystem的initialize方法并带上该参数，否则调用initialize方法并且configLocation为null
+			// 5. 设置一些比如org.springframework.boot、org.springframework、org.apache.tomcat、org.apache.catalina、org.eclipse.jetty、org.hibernate.tool.hbm2ddl、org.hibernate.SQL这些包的log level，跟第3步的level一样
+			// 6. 查看是否配置了logging.register-shutdown-hook，如配置并设置为true，使用addShutdownHook的addShutdownHook方法加入LoggingSystem的getShutdownHandler
 			onApplicationEnvironmentPreparedEvent(
 					(ApplicationEnvironmentPreparedEvent) event);
 		}
+		// 3.Spring容器创建好，并进行了部分操作之后触发该事件
 		else if (event instanceof ApplicationPreparedEvent) {
+			// onApplicationPreparedEvent方法内部会把LoggingSystem注册到BeanFactory中(前期是BeanFactory中不存在name为springBootLoggingSystem的实例)
 			onApplicationPreparedEvent((ApplicationPreparedEvent) event);
 		}
+		// 4.Spring容器关闭的时候触发该事件
 		else if (event instanceof ContextClosedEvent && ((ContextClosedEvent) event)
 				.getApplicationContext().getParent() == null) {
+			// onContextClosedEvent方法内部调用LoggingSystem的cleanUp方法进行清除工作
 			onContextClosedEvent();
 		}
+		// 5.Spring容器出现异常触发该事件
 		else if (event instanceof ApplicationFailedEvent) {
+			// onApplicationFailedEvent方法内部调用LoggingSystem的cleanUp方法进行清除工作
 			onApplicationFailedEvent();
 		}
 	}
 
 	private void onApplicationStartingEvent(ApplicationStartingEvent event) {
+		// 一开始先使用LoggingSystem的静态方法get获取LoggingSystem
+		// 静态方法get会从下面那段static代码块中得到的Map中进行遍历
+		// 如果对应的key(key是某个类的全名)在classloader中存在，那么会构造该key对应的value对应的LoggingSystem
 		this.loggingSystem = LoggingSystem
 				.get(event.getSpringApplication().getClassLoader());
 		this.loggingSystem.beforeInitialize();

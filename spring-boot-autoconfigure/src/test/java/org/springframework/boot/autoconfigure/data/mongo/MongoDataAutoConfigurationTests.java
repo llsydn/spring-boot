@@ -16,7 +16,7 @@
 
 package org.springframework.boot.autoconfigure.data.mongo;
 
-import java.time.LocalDateTime;
+// import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Set;
 
@@ -221,7 +221,7 @@ public class MongoDataAutoConfigurationTests {
 
 	static class Sample {
 
-		LocalDateTime date;
+		// LocalDateTime date;
 
 	}
 

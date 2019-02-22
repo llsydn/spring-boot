@@ -50,6 +50,10 @@ import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.servlet.DispatcherServlet;
 
 /**
+ * DispatcherServletAutoConfiguration这个自动化配置类存在2个条件注解@ConditionalOnWebApplication和@ConditionalOnClass(DispatcherServlet.class)都满足条件，
+ * 所以会被构造(存在@AutoConfigureAfter(EmbeddedServletContainerAutoConfiguration.class)注解，
+ * 会在EmbeddedServletContainerAutoConfiguration自动化配置类构造后构造)
+ *
  * {@link EnableAutoConfiguration Auto-configuration} for the Spring
  * {@link DispatcherServlet}. Should work for a standalone application where an embedded
  * servlet container is already present and also for a deployable application using
@@ -77,9 +81,20 @@ public class DispatcherServletAutoConfiguration {
 	 */
 	public static final String DEFAULT_DISPATCHER_SERVLET_REGISTRATION_BEAN_NAME = "dispatcherServletRegistration";
 
+	/**
+	 * 内部类DispatcherServletConfiguration，它会构造DispatcherServlet(使用了条件类DefaultDispatcherServletCondition，
+	 * 如果Spring容器已经存在自定义的DispatcherServlet类型的bean，该类就不会被构造，会直接使用自定义的DispatcherServlet)：
+	 */
+
 	@Configuration
+	// 条件类DefaultDispatcherServletCondition，是EmbeddedServletContainerAutoConfiguration的内部类
+	// DefaultDispatcherServletCondition条件类会去Spring容器中找DispatcherServlet类型的实例，如果找到了不会构造DispatcherServletConfiguration，
+	// 		否则就是构造DispatcherServletConfiguration，该类内部会构造DispatcherServlet
+	// 所以如果我们要自定义DispatcherServlet的话只需要自定义DispatcherServlet即可，这样DispatcherServletConfiguration内部就不会构造DispatcherServlet
 	@Conditional(DefaultDispatcherServletCondition.class)
+	// Servlet3.0开始才有的类，支持以编码的形式注册Servlet
 	@ConditionalOnClass(ServletRegistration.class)
+	// spring.mvc 为前缀的配置
 	@EnableConfigurationProperties(WebMvcProperties.class)
 	protected static class DispatcherServletConfiguration {
 
@@ -89,8 +104,10 @@ public class DispatcherServletAutoConfiguration {
 			this.webMvcProperties = webMvcProperties;
 		}
 
+		// Spring容器注册DispatcherServlet
 		@Bean(name = DEFAULT_DISPATCHER_SERVLET_BEAN_NAME)
 		public DispatcherServlet dispatcherServlet() {
+			// 直接构造DispatcherServlet，并设置WebMvcProperties中的一些配置
 			DispatcherServlet dispatcherServlet = new DispatcherServlet();
 			dispatcherServlet.setDispatchOptionsRequest(
 					this.webMvcProperties.isDispatchOptionsRequest());
@@ -101,7 +118,7 @@ public class DispatcherServletAutoConfiguration {
 			return dispatcherServlet;
 		}
 
-		@Bean
+		@Bean // 构造文件上传相关的bean
 		@ConditionalOnBean(MultipartResolver.class)
 		@ConditionalOnMissingBean(name = DispatcherServlet.MULTIPART_RESOLVER_BEAN_NAME)
 		public MultipartResolver multipartResolver(MultipartResolver resolver) {
@@ -136,6 +153,11 @@ public class DispatcherServletAutoConfiguration {
 		@ConditionalOnBean(value = DispatcherServlet.class, name = DEFAULT_DISPATCHER_SERVLET_BEAN_NAME)
 		public ServletRegistrationBean dispatcherServletRegistration(
 				DispatcherServlet dispatcherServlet) {
+			// 直接使用DispatcherServlet和server配置中的servletPath路径构造ServletRegistrationBean
+			// ServletRegistrationBean实现了ServletContextInitializer接口，在onStartup方法中对应的Servlet注册到Servlet容器中
+			// 所以这里DispatcherServlet会被注册到Servlet容器中，对应的urlMapping为server.servletPath配置
+
+			// ServletRegistrationBean实现了ServletContextInitializer接口，是个Servlet初始化器，onStartup方法
 			ServletRegistrationBean registration = new ServletRegistrationBean(
 					dispatcherServlet, this.serverProperties.getServletMapping());
 			registration.setName(DEFAULT_DISPATCHER_SERVLET_BEAN_NAME);

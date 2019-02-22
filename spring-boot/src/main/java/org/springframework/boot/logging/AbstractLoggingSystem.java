@@ -52,35 +52,52 @@ public abstract class AbstractLoggingSystem extends LoggingSystem {
 	@Override
 	public void initialize(LoggingInitializationContext initializationContext,
 			String configLocation, LogFile logFile) {
+		// 如果传递了日志配置文件，调用initializeWithSpecificConfig方法，使用指定的文件
 		if (StringUtils.hasLength(configLocation)) {
 			initializeWithSpecificConfig(initializationContext, configLocation, logFile);
 			return;
 		}
+		// 没有传递日志配置文件的话调用initializeWithConventions方法，使用约定俗成的方式
 		initializeWithConventions(initializationContext, logFile);
 	}
 
 	private void initializeWithSpecificConfig(
 			LoggingInitializationContext initializationContext, String configLocation,
 			LogFile logFile) {
+		// 处理日志配置文件中的占位符
 		configLocation = SystemPropertyUtils.resolvePlaceholders(configLocation);
 		loadConfiguration(initializationContext, configLocation, logFile);
 	}
 
 	private void initializeWithConventions(
 			LoggingInitializationContext initializationContext, LogFile logFile) {
+		// 获取自初始化的日志配置文件，该方法会使用getStandardConfigLocations抽象方法得到的文件数组
+		// 然后进行遍历，如果文件存在，返回对应的文件目录。注意这里的文件指的是classpath下的文件
 		String config = getSelfInitializationConfig();
 		if (config != null && logFile == null) {
 			// self initialization has occurred, reinitialize in case of property changes
+			// 调用reinitialize方法重新初始化
+			// 默认的reinitialize方法不做任何处理，logback,log4j2覆盖了这个方法，会进行处理
 			reinitialize(initializationContext);
 			return;
 		}
+		// 如果没有找到对应的日志配置文件
 		if (config == null) {
+			// 调用getSpringInitializationConfig方法获取日志配置文件
+			// 该方法与getSelfInitializationConfig方法的区别在于getStandardConfigLocations方法得到的文件数组内部遍历的逻辑
+			// getSelfInitializationConfig方法直接遍历并判断classpath下是否存在对应的文件
+			// getSpringInitializationConfig方法遍历后判断的文件名会在后缀前加上 "-spring" 字符串
+			// 比如查找logback.xml文件，getSelfInitializationConfig会直接查找classpath下是否存在logback.xml文件，
+			// 而getSpringInitializationConfig方法会判断classpath下是否存在logback-spring.xml文件
 			config = getSpringInitializationConfig();
 		}
+		// 如果找到了对应的日志配置文件
 		if (config != null) {
+			// 调用loadConfiguration抽象方法，让子类实现
 			loadConfiguration(initializationContext, config, logFile);
 			return;
 		}
+		// 还是没找到日志配置文件的话，调用loadDefaults抽象方法加载，让子类实现
 		loadDefaults(initializationContext, logFile);
 	}
 

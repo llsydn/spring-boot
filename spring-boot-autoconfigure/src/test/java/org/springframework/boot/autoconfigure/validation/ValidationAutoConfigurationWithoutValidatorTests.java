@@ -22,8 +22,8 @@ import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import org.springframework.boot.junit.runner.classpath.ClassPathExclusions;
-import org.springframework.boot.junit.runner.classpath.ModifiedClassPathRunner;
+// import org.springframework.boot.junit.runner.classpath.ClassPathExclusions;
+// import org.springframework.boot.junit.runner.classpath.ModifiedClassPathRunner;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.validation.beanvalidation.MethodValidationPostProcessor;
 
@@ -34,8 +34,8 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Stephane Nicoll
  */
-@RunWith(ModifiedClassPathRunner.class)
-@ClassPathExclusions("hibernate-validator-*.jar")
+// @RunWith(ModifiedClassPathRunner.class)
+// @ClassPathExclusions("hibernate-validator-*.jar")
 public class ValidationAutoConfigurationWithoutValidatorTests {
 
 	private AnnotationConfigApplicationContext context;

@@ -17,6 +17,10 @@
 package org.springframework.boot.context.embedded;
 
 /**
+ * 它目前有4个实现类，分别是JettyEmbeddedServletContainer、TomcatEmbeddedServletContainer和UndertowEmbeddedServletContainer，MockEmbeddedServletContainer
+ * 分别对应Jetty、Tomcat和Undertow，Mock这4个Servlet容器。
+ */
+/**
  * Simple interface that represents a fully configured embedded servlet container (for
  * example Tomcat or Jetty). Allows the container to be {@link #start() started} and
  * {@link #stop() stopped}.
@@ -30,6 +34,7 @@ package org.springframework.boot.context.embedded;
  */
 public interface EmbeddedServletContainer {
 
+	// 启动内置的Servlet容器，如果容器已经启动，则不影响
 	/**
 	 * Starts the embedded servlet container. Calling this method on an already started
 	 * container has no effect.
@@ -37,6 +42,7 @@ public interface EmbeddedServletContainer {
 	 */
 	void start() throws EmbeddedServletContainerException;
 
+	// 关闭内置的Servlet容器，如果容器已经关系，则不影响
 	/**
 	 * Stops the embedded servlet container. Calling this method on an already stopped
 	 * container has no effect.
@@ -44,6 +50,7 @@ public interface EmbeddedServletContainer {
 	 */
 	void stop() throws EmbeddedServletContainerException;
 
+	// 内置的Servlet容器监听的端口
 	/**
 	 * Return the port this server is listening on.
 	 * @return the port (or -1 if none)
