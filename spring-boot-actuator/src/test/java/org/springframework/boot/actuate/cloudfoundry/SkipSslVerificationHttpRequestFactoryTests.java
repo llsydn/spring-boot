@@ -38,7 +38,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.instanceOf;
 
 /**
- * Test for {@link SkipSslVerificationHttpRequestFactory}.
+ * test for {@link SkipSslVerificationHttpRequestFactory}.
  */
 public class SkipSslVerificationHttpRequestFactoryTests {
 

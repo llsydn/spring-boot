@@ -33,7 +33,7 @@ import org.springframework.context.annotation.Configuration;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Test for {@link MockitoPostProcessor}. See also the integration tests.
+ * test for {@link MockitoPostProcessor}. See also the integration tests.
  *
  * @author Phillip Webb
  * @author Andy Wilkinson

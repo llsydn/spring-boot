@@ -30,7 +30,7 @@ import org.springframework.validation.beanvalidation.MethodValidationPostProcess
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Test for {@link ValidationAutoConfiguration} when no JSR-303 provider is available.
+ * test for {@link ValidationAutoConfiguration} when no JSR-303 provider is available.
  *
  * @author Stephane Nicoll
  */

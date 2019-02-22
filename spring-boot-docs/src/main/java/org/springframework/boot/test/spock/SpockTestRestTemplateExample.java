@@ -34,7 +34,7 @@ import org.springframework.core.env.Environment;
 public class SpockTestRestTemplateExample {
 
 	/**
-	 * Test configuration for a {@link TestRestTemplate}.
+	 * test configuration for a {@link TestRestTemplate}.
 	 */
 	// tag::test-rest-template-configuration[]
 	@Configuration

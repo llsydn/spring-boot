@@ -55,7 +55,7 @@ public class NoSuchBeanDefinitionFailureAnalyzerTests {
 	@Test
 	public void failureAnalysisForMultipleBeans() {
 		FailureAnalysis analysis = analyzeFailure(
-				new NoUniqueBeanDefinitionException(String.class, 2, "Test"));
+				new NoUniqueBeanDefinitionException(String.class, 2, "test"));
 		assertThat(analysis).isNull();
 	}
 
@@ -313,7 +313,7 @@ public class NoSuchBeanDefinitionFailureAnalyzerTests {
 		@ConditionalOnProperty("spring.string.enabled")
 		@Bean
 		public String string() {
-			return "Test";
+			return "test";
 		}
 
 		@ConditionalOnProperty("spring.integer.enabled")
@@ -330,7 +330,7 @@ public class NoSuchBeanDefinitionFailureAnalyzerTests {
 
 		@Bean
 		public String string() {
-			return "Test";
+			return "test";
 		}
 
 	}
@@ -341,7 +341,7 @@ public class NoSuchBeanDefinitionFailureAnalyzerTests {
 		@ConditionalOnBean(Integer.class)
 		@Bean(name = "test-string")
 		public String string() {
-			return "Test";
+			return "test";
 		}
 
 	}

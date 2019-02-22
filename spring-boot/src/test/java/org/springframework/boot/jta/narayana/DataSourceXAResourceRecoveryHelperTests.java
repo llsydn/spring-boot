@@ -85,7 +85,7 @@ public class DataSourceXAResourceRecoveryHelperTests {
 	@Test
 	public void shouldFailToCreateConnectionAndNotGetXAResource() throws SQLException {
 		given(this.xaDataSource.getXAConnection())
-				.willThrow(new SQLException("Test exception"));
+				.willThrow(new SQLException("test exception"));
 		XAResource[] xaResources = this.recoveryHelper.getXAResources();
 		assertThat(xaResources.length).isEqualTo(0);
 		verify(this.xaDataSource, times(1)).getXAConnection();

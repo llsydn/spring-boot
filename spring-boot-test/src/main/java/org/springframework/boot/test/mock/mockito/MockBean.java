@@ -56,7 +56,7 @@ import org.springframework.test.context.junit4.SpringRunner;
  *     &#064;Autowired
  *     private UserOfService userOfService;
  *
- *     &#064;Test
+ *     &#064;test
  *     public void testUserOfService() {
  *         given(this.service.greet()).willReturn("Hello");
  *         String actual = this.userOfService.makeUse();

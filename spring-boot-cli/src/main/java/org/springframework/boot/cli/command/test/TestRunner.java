@@ -34,7 +34,7 @@ import org.springframework.util.ReflectionUtils;
  */
 public class TestRunner {
 
-	private static final String JUNIT_TEST_ANNOTATION = "org.junit.Test";
+	private static final String JUNIT_TEST_ANNOTATION = "org.junit.test";
 
 	private final String[] sources;
 

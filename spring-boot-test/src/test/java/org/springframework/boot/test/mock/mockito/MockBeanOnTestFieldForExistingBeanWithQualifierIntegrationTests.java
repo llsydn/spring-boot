@@ -34,7 +34,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.verify;
 
 /**
- * Test {@link MockBean} on a test class field can be used to replace existing bean while
+ * test {@link MockBean} on a test class field can be used to replace existing bean while
  * preserving qualifiers.
  *
  * @author Stephane Nicoll

@@ -261,7 +261,7 @@
 		</dependencies>
 	</dependencyManagement>
 	<dependencies>
-		<!-- Generally Useful Test Dependencies -->
+		<!-- Generally Useful test Dependencies -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>

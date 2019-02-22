@@ -56,7 +56,7 @@ import org.springframework.test.context.junit4.SpringRunner;
  *     &#064;Autowired
  *     private UserOfService userOfService;
  *
- *     &#064;Test
+ *     &#064;test
  *     public void testUserOfService() {
  *         String actual = this.userOfService.makeUse();
  *         assertEquals("Was: Hello", actual);

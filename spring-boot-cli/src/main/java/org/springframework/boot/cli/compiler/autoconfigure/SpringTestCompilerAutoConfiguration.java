@@ -32,7 +32,7 @@ import org.springframework.boot.cli.compiler.DependencyCustomizer;
 import org.springframework.boot.cli.compiler.GroovyCompilerConfiguration;
 
 /**
- * {@link CompilerAutoConfiguration} for Spring Test.
+ * {@link CompilerAutoConfiguration} for Spring test.
  *
  * @author Dave Syer
  * @since 1.1.0

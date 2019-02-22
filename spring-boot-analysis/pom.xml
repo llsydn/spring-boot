@@ -13,7 +13,7 @@
 	<artifactId>spring-boot-analysis</artifactId>
 	<packaging>jar</packaging>
 
-	<name>spring-boot-analysis</name>
+	<name>Spring Boot Analysis</name>
 	<description>spring boot 源码解析</description>
 
 	<properties>

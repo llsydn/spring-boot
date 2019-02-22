@@ -23,7 +23,7 @@ import org.junit.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Test for {@link AutoConfigurationMetadataLoader}.
+ * test for {@link AutoConfigurationMetadataLoader}.
  *
  * @author Phillip Webb
  */

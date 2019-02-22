@@ -33,7 +33,7 @@ public class JUnitCompilerAutoConfiguration extends CompilerAutoConfiguration {
 
 	@Override
 	public boolean matches(ClassNode classNode) {
-		return AstUtils.hasAtLeastOneAnnotation(classNode, "Test");
+		return AstUtils.hasAtLeastOneAnnotation(classNode, "test");
 	}
 
 	@Override

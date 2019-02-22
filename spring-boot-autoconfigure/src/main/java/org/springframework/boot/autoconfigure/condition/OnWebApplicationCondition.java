@@ -43,39 +43,50 @@ class OnWebApplicationCondition extends SpringBootCondition {
 	@Override
 	public ConditionOutcome getMatchOutcome(ConditionContext context,
 			AnnotatedTypeMetadata metadata) {
+		// 检查是否有@ConditionOnWebApplication注解
 		boolean required = metadata
 				.isAnnotated(ConditionalOnWebApplication.class.getName());
+		// 判断是否是WebApplication
 		ConditionOutcome outcome = isWebApplication(context, metadata, required);
 		if (required && !outcome.isMatch()) {
+			// 3.如果有@ConditionOnWebApplication注解，但是不是webApplication环境，则返回不匹配
 			return ConditionOutcome.noMatch(outcome.getConditionMessage());
 		}
 		if (!required && outcome.isMatch()) {
+			// 4.如果没有有@ConditionOnWebApplication注解，但是是webApplication环境，则返回不匹配
 			return ConditionOutcome.noMatch(outcome.getConditionMessage());
 		}
+		// 5.有@ConditionOnWebApplication注解，是webApplication环境，则返回匹配
 		return ConditionOutcome.match(outcome.getConditionMessage());
 	}
 
+	// 判断是否为webApplication环境
 	private ConditionOutcome isWebApplication(ConditionContext context,
 			AnnotatedTypeMetadata metadata, boolean required) {
 		ConditionMessage.Builder message = ConditionMessage.forCondition(
 				ConditionalOnWebApplication.class, required ? "(required)" : "");
+		// 1.判断GenericWebApplication是否在类路径中，如果不存在，则返回不匹配
 		if (!ClassUtils.isPresent(WEB_CONTEXT_CLASS, context.getClassLoader())) {
 			return ConditionOutcome
 					.noMatch(message.didNotFind("web application classes").atAll());
 		}
+		// 2.容器是否有名为session的scope，如果存在，则匹配返回
 		if (context.getBeanFactory() != null) {
 			String[] scopes = context.getBeanFactory().getRegisteredScopeNames();
 			if (ObjectUtils.containsElement(scopes, "session")) {
 				return ConditionOutcome.match(message.foundExactly("'session' scope"));
 			}
 		}
+		// 3.ConditionContext中的Environment是否为StandardServletEnvironment，如果是的话，则返回匹配
 		if (context.getEnvironment() instanceof StandardServletEnvironment) {
 			return ConditionOutcome
 					.match(message.foundExactly("StandardServletEnvironment"));
 		}
+		// 4.当前ResourceLoader是否为WebApplication，如果是，则返回匹配
 		if (context.getResourceLoader() instanceof WebApplicationContext) {
 			return ConditionOutcome.match(message.foundExactly("WebApplicationContext"));
 		}
+		// 5.其他情况，返回不匹配
 		return ConditionOutcome.noMatch(message.because("not a web application"));
 	}
 

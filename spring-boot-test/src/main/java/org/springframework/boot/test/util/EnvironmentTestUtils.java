@@ -27,7 +27,7 @@ import org.springframework.core.env.MapPropertySource;
 import org.springframework.core.env.MutablePropertySources;
 
 /**
- * Test utilities for setting environment values.
+ * test utilities for setting environment values.
  *
  * @author Dave Syer
  * @author Stephane Nicoll

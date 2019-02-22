@@ -319,7 +319,7 @@ public class CrshAutoConfiguration {
 				return false;
 			}
 
-			// Test access rights if a Spring Security AccessDecisionManager is installed
+			// test access rights if a Spring Security AccessDecisionManager is installed
 			if (this.accessDecisionManager != null && token.isAuthenticated()
 					&& this.roles != null) {
 				try {

@@ -49,7 +49,7 @@ import static org.mockito.Mockito.mock;
  */
 public class SpringApplicationAdminMXBeanRegistrarTests {
 
-	private static final String OBJECT_NAME = "org.springframework.boot:type=Test,name=SpringApplication";
+	private static final String OBJECT_NAME = "org.springframework.boot:type=test,name=SpringApplication";
 
 	@Rule
 	public final ExpectedException thrown = ExpectedException.none();

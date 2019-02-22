@@ -53,7 +53,7 @@ List<TestSlice> createTestSlices(Project project) {
 	MetadataReaderFactory metadataReaderFactory = new SimpleMetadataReaderFactory()
 	project.classFiles
 		.findAll { classFile ->
-			classFile.name.endsWith('Test.class')
+			classFile.name.endsWith('test.class')
 		}.collect { classFile ->
 			createMetadataReader(metadataReaderFactory, classFile)
 		}.findAll { metadataReader ->
@@ -101,7 +101,7 @@ void writeTestSlicesTable(List<TestSlice> testSlices) {
 	new File(project.build.directory, "generated-resources/test-slice-auto-configuration.adoc").withPrintWriter { writer ->
 		writer.println '[cols="d,a"]'
 		writer.println '|==='
-		writer.println '| Test slice | Imported auto-configuration'
+		writer.println '| test slice | Imported auto-configuration'
 		testSlices.each { testSlice ->
 			writer.println ''
 			writer.println "| `@${testSlice.name}`"

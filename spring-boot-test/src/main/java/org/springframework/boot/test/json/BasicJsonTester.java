@@ -31,7 +31,7 @@ import org.springframework.util.Assert;
  *
  *     private BasicJsonTester json = new BasicJsonTester(getClass());
  *
- *     &#064;Test
+ *     &#064;test
  *     public void testWriteJson() throws IOException {
  *         assertThat(json.from("example.json")).extractingJsonPathStringValue("@.name")
 				.isEqualTo("Spring");

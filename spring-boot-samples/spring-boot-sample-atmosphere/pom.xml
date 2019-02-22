@@ -39,7 +39,7 @@
 			<artifactId>atmosphere-javascript</artifactId>
 			<version>2.2.3</version>
 		</dependency>
-		<!-- Test -->
+		<!-- test -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>

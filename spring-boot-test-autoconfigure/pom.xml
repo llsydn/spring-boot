@@ -126,7 +126,7 @@
 			<artifactId>spring-security-test</artifactId>
 			<optional>true</optional>
 		</dependency>
-		<!-- Test -->
+		<!-- test -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-test-support</artifactId>

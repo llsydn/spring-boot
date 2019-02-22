@@ -172,7 +172,7 @@ public class SpringApplicationTests {
 		SpringApplication application = spy(new SpringApplication(ExampleConfig.class));
 		application.setWebEnvironment(false);
 		this.context = application.run("--banner.location=classpath:test-banner.txt");
-		assertThat(this.output.toString()).startsWith("Running a Test!");
+		assertThat(this.output.toString()).startsWith("Running a test!");
 	}
 
 	@Test
@@ -182,7 +182,7 @@ public class SpringApplicationTests {
 		this.context = application.run(
 				"--banner.location=classpath:test-banner-with-placeholder.txt",
 				"--test.property=123456");
-		assertThat(this.output.toString()).containsPattern("Running a Test!\\s+123456");
+		assertThat(this.output.toString()).containsPattern("Running a test!\\s+123456");
 	}
 
 	@Test

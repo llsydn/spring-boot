@@ -28,7 +28,7 @@ import org.springframework.stereotype.Component;
 import static org.mockito.Mockito.mock;
 
 /**
- * Test configurer for couchbase that mocks access.
+ * test configurer for couchbase that mocks access.
  *
  * @author Stephane Nicoll
  */

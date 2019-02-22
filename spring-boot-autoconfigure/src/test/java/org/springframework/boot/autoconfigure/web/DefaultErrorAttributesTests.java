@@ -78,7 +78,7 @@ public class DefaultErrorAttributesTests {
 
 	@Test
 	public void mvcError() throws Exception {
-		RuntimeException ex = new RuntimeException("Test");
+		RuntimeException ex = new RuntimeException("test");
 		ModelAndView modelAndView = this.errorAttributes.resolveException(this.request,
 				null, null, ex);
 		this.request.setAttribute("javax.servlet.error.exception",
@@ -89,45 +89,45 @@ public class DefaultErrorAttributesTests {
 		assertThat(modelAndView).isNull();
 		assertThat(attributes.get("exception"))
 				.isEqualTo(RuntimeException.class.getName());
-		assertThat(attributes.get("message")).isEqualTo("Test");
+		assertThat(attributes.get("message")).isEqualTo("test");
 	}
 
 	@Test
 	public void servletError() throws Exception {
-		RuntimeException ex = new RuntimeException("Test");
+		RuntimeException ex = new RuntimeException("test");
 		this.request.setAttribute("javax.servlet.error.exception", ex);
 		Map<String, Object> attributes = this.errorAttributes
 				.getErrorAttributes(this.requestAttributes, false);
 		assertThat(this.errorAttributes.getError(this.requestAttributes)).isSameAs(ex);
 		assertThat(attributes.get("exception"))
 				.isEqualTo(RuntimeException.class.getName());
-		assertThat(attributes.get("message")).isEqualTo("Test");
+		assertThat(attributes.get("message")).isEqualTo("test");
 	}
 
 	@Test
 	public void servletMessage() throws Exception {
-		this.request.setAttribute("javax.servlet.error.message", "Test");
+		this.request.setAttribute("javax.servlet.error.message", "test");
 		Map<String, Object> attributes = this.errorAttributes
 				.getErrorAttributes(this.requestAttributes, false);
 		assertThat(attributes.get("exception")).isNull();
-		assertThat(attributes.get("message")).isEqualTo("Test");
+		assertThat(attributes.get("message")).isEqualTo("test");
 	}
 
 	@Test
 	public void nullMessage() throws Exception {
 		this.request.setAttribute("javax.servlet.error.exception",
 				new RuntimeException());
-		this.request.setAttribute("javax.servlet.error.message", "Test");
+		this.request.setAttribute("javax.servlet.error.message", "test");
 		Map<String, Object> attributes = this.errorAttributes
 				.getErrorAttributes(this.requestAttributes, false);
 		assertThat(attributes.get("exception"))
 				.isEqualTo(RuntimeException.class.getName());
-		assertThat(attributes.get("message")).isEqualTo("Test");
+		assertThat(attributes.get("message")).isEqualTo("test");
 	}
 
 	@Test
 	public void unwrapServletException() throws Exception {
-		RuntimeException ex = new RuntimeException("Test");
+		RuntimeException ex = new RuntimeException("test");
 		ServletException wrapped = new ServletException(new ServletException(ex));
 		this.request.setAttribute("javax.servlet.error.exception", wrapped);
 		Map<String, Object> attributes = this.errorAttributes
@@ -136,19 +136,19 @@ public class DefaultErrorAttributesTests {
 				.isSameAs(wrapped);
 		assertThat(attributes.get("exception"))
 				.isEqualTo(RuntimeException.class.getName());
-		assertThat(attributes.get("message")).isEqualTo("Test");
+		assertThat(attributes.get("message")).isEqualTo("test");
 	}
 
 	@Test
 	public void getError() throws Exception {
-		Error error = new OutOfMemoryError("Test error");
+		Error error = new OutOfMemoryError("test error");
 		this.request.setAttribute("javax.servlet.error.exception", error);
 		Map<String, Object> attributes = this.errorAttributes
 				.getErrorAttributes(this.requestAttributes, false);
 		assertThat(this.errorAttributes.getError(this.requestAttributes)).isSameAs(error);
 		assertThat(attributes.get("exception"))
 				.isEqualTo(OutOfMemoryError.class.getName());
-		assertThat(attributes.get("message")).isEqualTo("Test error");
+		assertThat(attributes.get("message")).isEqualTo("test error");
 	}
 
 	@Test
@@ -181,7 +181,7 @@ public class DefaultErrorAttributesTests {
 
 	@Test
 	public void trace() throws Exception {
-		RuntimeException ex = new RuntimeException("Test");
+		RuntimeException ex = new RuntimeException("test");
 		this.request.setAttribute("javax.servlet.error.exception", ex);
 		Map<String, Object> attributes = this.errorAttributes
 				.getErrorAttributes(this.requestAttributes, true);
@@ -190,7 +190,7 @@ public class DefaultErrorAttributesTests {
 
 	@Test
 	public void noTrace() throws Exception {
-		RuntimeException ex = new RuntimeException("Test");
+		RuntimeException ex = new RuntimeException("test");
 		this.request.setAttribute("javax.servlet.error.exception", ex);
 		Map<String, Object> attributes = this.errorAttributes
 				.getErrorAttributes(this.requestAttributes, false);

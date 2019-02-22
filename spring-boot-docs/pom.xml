@@ -730,7 +730,7 @@
 			<artifactId>jedis</artifactId>
 			<optional>true</optional>
 		</dependency>
-		<!-- Test dependencies -->
+		<!-- test dependencies -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot</artifactId>

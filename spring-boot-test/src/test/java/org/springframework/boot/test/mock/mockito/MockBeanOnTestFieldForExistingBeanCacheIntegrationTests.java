@@ -29,7 +29,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
 
 /**
- * Test {@link MockBean} on a test class field can be used to replace existing beans when
+ * test {@link MockBean} on a test class field can be used to replace existing beans when
  * the context is cached. This test is identical to
  * {@link MockBeanOnTestFieldForExistingBeanIntegrationTests} so one of them should
  * trigger application context caching.

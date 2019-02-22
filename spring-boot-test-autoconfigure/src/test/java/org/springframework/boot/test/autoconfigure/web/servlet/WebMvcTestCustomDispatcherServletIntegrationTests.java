@@ -30,7 +30,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
- * Tests for Test {@link DispatcherServlet} customizations.
+ * Tests for test {@link DispatcherServlet} customizations.
  *
  * @author Stephane Nicoll
  */

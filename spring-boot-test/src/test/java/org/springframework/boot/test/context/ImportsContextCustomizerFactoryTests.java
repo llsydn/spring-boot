@@ -88,7 +88,7 @@ public class ImportsContextCustomizerFactoryTests {
 	public void getContextCustomizerWhenClassHasBeanMethodsShouldThrowException()
 			throws Exception {
 		this.thrown.expect(IllegalStateException.class);
-		this.thrown.expectMessage("Test classes cannot include @Bean methods");
+		this.thrown.expectMessage("test classes cannot include @Bean methods");
 		this.factory.createContextCustomizer(TestWithImportAndBeanMethod.class, null);
 	}
 

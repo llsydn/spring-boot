@@ -83,7 +83,7 @@ public class AutoConfigurationPackagesTests {
 	}
 
 	/**
-	 * Test helper to allow {@link Registrar} to be referenced from other packages.
+	 * test helper to allow {@link Registrar} to be referenced from other packages.
 	 */
 	public static class TestRegistrar extends Registrar {
 

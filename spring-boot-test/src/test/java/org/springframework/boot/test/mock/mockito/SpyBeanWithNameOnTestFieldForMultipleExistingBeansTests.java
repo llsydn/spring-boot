@@ -28,7 +28,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Test {@link SpyBean} on a test class field can be used to inject a spy instance when
+ * test {@link SpyBean} on a test class field can be used to inject a spy instance when
  * there are multiple candidates and one is chosen using the name attribute.
  *
  * @author Phillip Webb

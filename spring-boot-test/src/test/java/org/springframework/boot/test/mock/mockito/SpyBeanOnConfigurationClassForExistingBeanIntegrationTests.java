@@ -30,7 +30,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.verify;
 
 /**
- * Test {@link SpyBean} on a configuration class can be used to spy existing beans.
+ * test {@link SpyBean} on a configuration class can be used to spy existing beans.
  *
  * @author Phillip Webb
  */

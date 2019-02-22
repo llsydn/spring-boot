@@ -27,7 +27,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Test for {@link SpringBootTest} with a custom inline server.port in a non-embedded web
+ * test for {@link SpringBootTest} with a custom inline server.port in a non-embedded web
  * environment.
  *
  * @author Stephane Nicoll

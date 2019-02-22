@@ -37,7 +37,7 @@
 			<artifactId>jersey-servlet</artifactId>
 			<version>1.13</version>
 		</dependency>
-		<!-- Test -->
+		<!-- test -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>

@@ -30,7 +30,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
 
 /**
- * Test {@link MockBean} on a field on a {@code @Configuration} class can be used to
+ * test {@link MockBean} on a field on a {@code @Configuration} class can be used to
  * inject new mock instances.
  *
  * @author Phillip Webb

@@ -19,7 +19,7 @@ package org.springframework.boot.test.autoconfigure.restdocs;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- * Test application used with {@link AutoConfigureRestDocs} tests.
+ * test application used with {@link AutoConfigureRestDocs} tests.
  *
  * @author Andy Wilkinson
  */

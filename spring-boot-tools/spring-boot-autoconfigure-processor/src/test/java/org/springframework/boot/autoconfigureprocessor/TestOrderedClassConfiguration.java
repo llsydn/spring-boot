@@ -20,7 +20,7 @@ import java.io.ObjectInputStream;
 import java.io.OutputStream;
 
 /**
- * Test configuration with an annotated class.
+ * test configuration with an annotated class.
  *
  * @author Phillip Webb
  */

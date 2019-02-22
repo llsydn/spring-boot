@@ -24,7 +24,7 @@ import org.springframework.test.context.TestExecutionListener;
 import org.springframework.test.context.support.AbstractTestExecutionListener;
 
 /**
- * Test {@link DefaultTestExecutionListenersPostProcessor}.
+ * test {@link DefaultTestExecutionListenersPostProcessor}.
  *
  * @author Phillip Webb
  */

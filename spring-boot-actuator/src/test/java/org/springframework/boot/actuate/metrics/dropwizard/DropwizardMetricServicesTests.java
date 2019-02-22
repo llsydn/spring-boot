@@ -131,7 +131,7 @@ public class DropwizardMetricServicesTests {
 	}
 
 	/**
-	 * Test the case where a given writer is used amongst several threads where each
+	 * test the case where a given writer is used amongst several threads where each
 	 * thread is updating the same set of metrics. This would be an example case of the
 	 * writer being used with the MetricsFilter handling several requests/sec to the same
 	 * URL.

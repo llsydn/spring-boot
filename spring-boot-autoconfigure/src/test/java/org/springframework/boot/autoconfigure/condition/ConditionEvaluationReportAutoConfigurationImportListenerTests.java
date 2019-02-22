@@ -58,7 +58,7 @@ public class ConditionEvaluationReportAutoConfigurationImportListenerTests {
 
 	@Test
 	public void onAutoConfigurationImportEventShouldRecordCandidates() throws Exception {
-		List<String> candidateConfigurations = Collections.singletonList("Test");
+		List<String> candidateConfigurations = Collections.singletonList("test");
 		Set<String> exclusions = Collections.emptySet();
 		AutoConfigurationImportEvent event = new AutoConfigurationImportEvent(this,
 				candidateConfigurations, exclusions);
@@ -72,7 +72,7 @@ public class ConditionEvaluationReportAutoConfigurationImportListenerTests {
 	@Test
 	public void onAutoConfigurationImportEventShouldRecordExclusions() throws Exception {
 		List<String> candidateConfigurations = Collections.emptyList();
-		Set<String> exclusions = Collections.singleton("Test");
+		Set<String> exclusions = Collections.singleton("test");
 		AutoConfigurationImportEvent event = new AutoConfigurationImportEvent(this,
 				candidateConfigurations, exclusions);
 		this.listener.onAutoConfigurationImportEvent(event);

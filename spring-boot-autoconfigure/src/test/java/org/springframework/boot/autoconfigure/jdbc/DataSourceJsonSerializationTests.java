@@ -47,7 +47,7 @@ import org.springframework.util.StringUtils;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Test that a {@link DataSource} can be exposed as JSON for actuator endpoints.
+ * test that a {@link DataSource} can be exposed as JSON for actuator endpoints.
  *
  * @author Dave Syer
  */

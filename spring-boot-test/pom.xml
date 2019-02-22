@@ -105,7 +105,7 @@
 			<artifactId>htmlunit</artifactId>
 			<optional>true</optional>
 		</dependency>
-		<!-- Test -->
+		<!-- test -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot</artifactId>

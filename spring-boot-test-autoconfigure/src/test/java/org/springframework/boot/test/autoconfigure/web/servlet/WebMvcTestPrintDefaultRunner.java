@@ -27,7 +27,7 @@ import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.not;
 
 /**
- * Test runner used for {@link WebMvcTestPrintDefaultIntegrationTests}.
+ * test runner used for {@link WebMvcTestPrintDefaultIntegrationTests}.
  *
  * @author Phillip Webb
  */

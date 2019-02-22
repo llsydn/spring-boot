@@ -53,7 +53,7 @@ public class MailHealthIndicatorTests {
 	public void setup() {
 		Session session = Session.getDefaultInstance(new Properties());
 		session.addProvider(new Provider(Type.TRANSPORT, "success",
-				SuccessTransport.class.getName(), "Test", "1.0.0"));
+				SuccessTransport.class.getName(), "test", "1.0.0"));
 		this.mailSender = mock(JavaMailSenderImpl.class);
 		given(this.mailSender.getHost()).willReturn("smtp.acme.org");
 		given(this.mailSender.getPort()).willReturn(25);

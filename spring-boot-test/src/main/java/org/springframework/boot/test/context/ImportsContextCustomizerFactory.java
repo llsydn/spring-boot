@@ -54,7 +54,7 @@ class ImportsContextCustomizerFactory implements ContextCustomizerFactory {
 			@Override
 			public void doWith(Method method) {
 				Assert.state(!AnnotatedElementUtils.isAnnotated(method, Bean.class),
-						"Test classes cannot include @Bean methods");
+						"test classes cannot include @Bean methods");
 			}
 
 		});

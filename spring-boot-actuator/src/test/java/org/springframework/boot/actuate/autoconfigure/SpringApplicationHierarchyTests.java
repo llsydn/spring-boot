@@ -34,7 +34,7 @@ import org.springframework.boot.test.util.ApplicationContextTestUtils;
 import org.springframework.context.ConfigurableApplicationContext;
 
 /**
- * Test for application hierarchies created using {@link SpringApplicationBuilder}.
+ * test for application hierarchies created using {@link SpringApplicationBuilder}.
  *
  * @author Dave Syer
  */

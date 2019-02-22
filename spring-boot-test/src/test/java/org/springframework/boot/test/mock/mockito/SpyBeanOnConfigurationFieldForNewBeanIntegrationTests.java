@@ -30,7 +30,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.verify;
 
 /**
- * Test {@link SpyBean} on a field on a {@code @Configuration} class can be used to inject
+ * test {@link SpyBean} on a field on a {@code @Configuration} class can be used to inject
  * new spy instances.
  *
  * @author Phillip Webb

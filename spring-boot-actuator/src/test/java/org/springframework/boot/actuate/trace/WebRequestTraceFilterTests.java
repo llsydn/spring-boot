@@ -306,13 +306,13 @@ public class WebRequestTraceFilterTests {
 
 			@Override
 			protected void postProcessRequestHeaders(Map<String, Object> headers) {
-				headers.remove("Test");
+				headers.remove("test");
 			}
 
 		};
 		MockHttpServletRequest request = spy(new MockHttpServletRequest("GET", "/foo"));
 		request.addHeader("Accept", "application/json");
-		request.addHeader("Test", "spring");
+		request.addHeader("test", "spring");
 		Map<String, Object> map = (Map<String, Object>) this.filter.getTrace(request)
 				.get("headers");
 		assertThat(map.get("request").toString()).isEqualTo("{Accept=application/json}");

@@ -130,7 +130,7 @@ public final class ResolveDependencyCoordinatesTransformationTests {
 
 	@Test
 	public void transformationOfAnnotationOnClass() {
-		ClassNode classNode = new ClassNode("Test", 0, new ClassNode(Object.class));
+		ClassNode classNode = new ClassNode("test", 0, new ClassNode(Object.class));
 		classNode.addAnnotation(this.grabAnnotation);
 		this.moduleNode.addClass(classNode);
 
@@ -143,7 +143,7 @@ public final class ResolveDependencyCoordinatesTransformationTests {
 
 	@Test
 	public void transformationOfAnnotationOnField() {
-		ClassNode classNode = new ClassNode("Test", 0, new ClassNode(Object.class));
+		ClassNode classNode = new ClassNode("test", 0, new ClassNode(Object.class));
 		this.moduleNode.addClass(classNode);
 
 		FieldNode fieldNode = new FieldNode("test", 0, new ClassNode(Object.class),
@@ -157,7 +157,7 @@ public final class ResolveDependencyCoordinatesTransformationTests {
 
 	@Test
 	public void transformationOfAnnotationOnConstructor() {
-		ClassNode classNode = new ClassNode("Test", 0, new ClassNode(Object.class));
+		ClassNode classNode = new ClassNode("test", 0, new ClassNode(Object.class));
 		this.moduleNode.addClass(classNode);
 
 		ConstructorNode constructorNode = new ConstructorNode(0, null);
@@ -169,7 +169,7 @@ public final class ResolveDependencyCoordinatesTransformationTests {
 
 	@Test
 	public void transformationOfAnnotationOnMethod() {
-		ClassNode classNode = new ClassNode("Test", 0, new ClassNode(Object.class));
+		ClassNode classNode = new ClassNode("test", 0, new ClassNode(Object.class));
 		this.moduleNode.addClass(classNode);
 
 		MethodNode methodNode = new MethodNode("test", 0, new ClassNode(Void.class),
@@ -182,7 +182,7 @@ public final class ResolveDependencyCoordinatesTransformationTests {
 
 	@Test
 	public void transformationOfAnnotationOnMethodParameter() {
-		ClassNode classNode = new ClassNode("Test", 0, new ClassNode(Object.class));
+		ClassNode classNode = new ClassNode("test", 0, new ClassNode(Object.class));
 		this.moduleNode.addClass(classNode);
 
 		Parameter parameter = new Parameter(new ClassNode(Object.class), "test");
@@ -197,7 +197,7 @@ public final class ResolveDependencyCoordinatesTransformationTests {
 
 	@Test
 	public void transformationOfAnnotationOnLocalVariable() {
-		ClassNode classNode = new ClassNode("Test", 0, new ClassNode(Object.class));
+		ClassNode classNode = new ClassNode("test", 0, new ClassNode(Object.class));
 		this.moduleNode.addClass(classNode);
 
 		DeclarationExpression declarationExpression = new DeclarationExpression(

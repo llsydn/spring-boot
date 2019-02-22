@@ -22,7 +22,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Test annotation for a main application class.
+ * test annotation for a main application class.
  *
  * @author Andy Wilkinson
  */

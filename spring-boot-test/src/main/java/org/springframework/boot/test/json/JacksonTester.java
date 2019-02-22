@@ -42,7 +42,7 @@ import org.springframework.util.Assert;
  *         JacksonTester.initFields(this, objectMapper);
  *     }
  *
- *     &#064;Test
+ *     &#064;test
  *     public void testWriteJson() throws IOException {
  *         ExampleObject object = //...
  *         assertThat(json.write(object)).isEqualToJson("expected.json");

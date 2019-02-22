@@ -42,7 +42,7 @@
 			<artifactId>tomcat-juli</artifactId>
 			<version>${tomcat.version}</version>
 		</dependency>
-		<!-- Test -->
+		<!-- test -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>

@@ -25,7 +25,7 @@ public class SampleApplication {
 			appContext = Class.forName("org.springframework.context.ApplicationContext");
 		}
 		catch (ClassNotFoundException e) {
-			throw new IllegalStateException("Test dependencies not added to classpath", e);
+			throw new IllegalStateException("test dependencies not added to classpath", e);
 		}
 		System.out.println("I haz been run");
 	}

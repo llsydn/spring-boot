@@ -77,7 +77,7 @@ public class PatternClassPathRestartStrategyTests {
 	@Test
 	public void testChange() {
 		ClassPathRestartStrategy strategy = createStrategy(
-				"**/*Test.class,**/*Tests.class");
+				"**/*test.class,**/*Tests.class");
 		assertRestartRequired(strategy, "com/example/ExampleTests.class", false);
 		assertRestartRequired(strategy, "com/example/ExampleTest.class", false);
 		assertRestartRequired(strategy, "com/example/Example.class", true);

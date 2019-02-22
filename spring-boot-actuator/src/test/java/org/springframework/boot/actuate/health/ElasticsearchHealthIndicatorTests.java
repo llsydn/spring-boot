@@ -43,7 +43,7 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Matchers.any;
 
 /**
- * Test for {@link ElasticsearchHealthIndicator}.
+ * test for {@link ElasticsearchHealthIndicator}.
  *
  * @author Andy Wilkinson
  */

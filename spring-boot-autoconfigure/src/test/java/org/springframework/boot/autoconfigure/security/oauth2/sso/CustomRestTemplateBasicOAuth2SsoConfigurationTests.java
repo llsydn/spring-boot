@@ -39,7 +39,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verifyZeroInteractions;
 
 /**
- * Test to validate that a custom {@link RestTemplate} can be defined with OAuth2 SSO.
+ * test to validate that a custom {@link RestTemplate} can be defined with OAuth2 SSO.
  *
  * @author Stephane Nicoll
  */

@@ -40,7 +40,7 @@ public class ConditionMessageTests {
 
 	@Test
 	public void isEmptyWhenNotEmptyShouldReturnFalse() throws Exception {
-		ConditionMessage message = ConditionMessage.of("Test");
+		ConditionMessage message = ConditionMessage.of("test");
 		assertThat(message.isEmpty()).isFalse();
 	}
 
@@ -52,8 +52,8 @@ public class ConditionMessageTests {
 
 	@Test
 	public void toStringWhenHasMessageShouldReturnMessage() throws Exception {
-		ConditionMessage message = ConditionMessage.of("Test");
-		assertThat(message.toString()).isEqualTo("Test");
+		ConditionMessage message = ConditionMessage.of("test");
+		assertThat(message.toString()).isEqualTo("test");
 	}
 
 	@Test
@@ -78,14 +78,14 @@ public class ConditionMessageTests {
 	public void andConditionWhenUsingClassShouldIncludeCondition() throws Exception {
 		ConditionMessage message = ConditionMessage.empty().andCondition(Test.class)
 				.because("OK");
-		assertThat(message.toString()).isEqualTo("@Test OK");
+		assertThat(message.toString()).isEqualTo("@test OK");
 	}
 
 	@Test
 	public void andConditionWhenUsingStringShouldIncludeCondition() throws Exception {
-		ConditionMessage message = ConditionMessage.empty().andCondition("@Test")
+		ConditionMessage message = ConditionMessage.empty().andCondition("@test")
 				.because("OK");
-		assertThat(message.toString()).isEqualTo("@Test OK");
+		assertThat(message.toString()).isEqualTo("@test OK");
 	}
 
 	@Test
@@ -93,7 +93,7 @@ public class ConditionMessageTests {
 			throws Exception {
 		ConditionMessage message = ConditionMessage.empty()
 				.andCondition(Test.class, "(a=b)").because("OK");
-		assertThat(message.toString()).isEqualTo("@Test (a=b) OK");
+		assertThat(message.toString()).isEqualTo("@test (a=b) OK");
 	}
 
 	@Test
@@ -113,8 +113,8 @@ public class ConditionMessageTests {
 
 	@Test
 	public void forConditionShouldIncludeCondition() throws Exception {
-		ConditionMessage message = ConditionMessage.forCondition("@Test").because("OK");
-		assertThat(message.toString()).isEqualTo("@Test OK");
+		ConditionMessage message = ConditionMessage.forCondition("@test").because("OK");
+		assertThat(message.toString()).isEqualTo("@test OK");
 	}
 
 	@Test
@@ -127,77 +127,77 @@ public class ConditionMessageTests {
 	public void forConditionWhenClassShouldIncludeCondition() throws Exception {
 		ConditionMessage message = ConditionMessage.forCondition(Test.class, "(a=b)")
 				.because("OK");
-		assertThat(message.toString()).isEqualTo("@Test (a=b) OK");
+		assertThat(message.toString()).isEqualTo("@test (a=b) OK");
 	}
 
 	@Test
 	public void foundExactlyShouldConstructMessage() throws Exception {
 		ConditionMessage message = ConditionMessage.forCondition(Test.class)
 				.foundExactly("abc");
-		assertThat(message.toString()).isEqualTo("@Test found abc");
+		assertThat(message.toString()).isEqualTo("@test found abc");
 	}
 
 	@Test
 	public void foundWhenSingleElementShouldUseSingular() throws Exception {
 		ConditionMessage message = ConditionMessage.forCondition(Test.class)
 				.found("bean", "beans").items("a");
-		assertThat(message.toString()).isEqualTo("@Test found bean a");
+		assertThat(message.toString()).isEqualTo("@test found bean a");
 	}
 
 	@Test
 	public void foundNoneAtAllShouldConstructMessage() throws Exception {
 		ConditionMessage message = ConditionMessage.forCondition(Test.class)
 				.found("no beans").atAll();
-		assertThat(message.toString()).isEqualTo("@Test found no beans");
+		assertThat(message.toString()).isEqualTo("@test found no beans");
 	}
 
 	@Test
 	public void foundWhenMultipleElementsShouldUsePlural() throws Exception {
 		ConditionMessage message = ConditionMessage.forCondition(Test.class)
 				.found("bean", "beans").items("a", "b", "c");
-		assertThat(message.toString()).isEqualTo("@Test found beans a, b, c");
+		assertThat(message.toString()).isEqualTo("@test found beans a, b, c");
 	}
 
 	@Test
 	public void foundWhenQuoteStyleShouldQuote() throws Exception {
 		ConditionMessage message = ConditionMessage.forCondition(Test.class)
 				.found("bean", "beans").items(Style.QUOTE, "a", "b", "c");
-		assertThat(message.toString()).isEqualTo("@Test found beans 'a', 'b', 'c'");
+		assertThat(message.toString()).isEqualTo("@test found beans 'a', 'b', 'c'");
 	}
 
 	@Test
 	public void didNotFindWhenSingleElementShouldUseSingular() throws Exception {
 		ConditionMessage message = ConditionMessage.forCondition(Test.class)
 				.didNotFind("class", "classes").items("a");
-		assertThat(message.toString()).isEqualTo("@Test did not find class a");
+		assertThat(message.toString()).isEqualTo("@test did not find class a");
 	}
 
 	@Test
 	public void didNotFindWhenMultipleElementsShouldUsePlural() throws Exception {
 		ConditionMessage message = ConditionMessage.forCondition(Test.class)
 				.didNotFind("class", "classes").items("a", "b", "c");
-		assertThat(message.toString()).isEqualTo("@Test did not find classes a, b, c");
+		assertThat(message.toString()).isEqualTo("@test did not find classes a, b, c");
 	}
 
 	@Test
 	public void resultedInShouldConstructMessage() throws Exception {
 		ConditionMessage message = ConditionMessage.forCondition(Test.class)
 				.resultedIn("Green");
-		assertThat(message.toString()).isEqualTo("@Test resulted in Green");
+		assertThat(message.toString()).isEqualTo("@test resulted in Green");
 	}
 
 	@Test
 	public void notAvailableShouldConstructMessage() throws Exception {
 		ConditionMessage message = ConditionMessage.forCondition(Test.class)
 				.notAvailable("JMX");
-		assertThat(message.toString()).isEqualTo("@Test JMX is not available");
+		assertThat(message.toString()).isEqualTo("@test JMX is not available");
 	}
 
 	@Test
 	public void availableShouldConstructMessage() throws Exception {
 		ConditionMessage message = ConditionMessage.forCondition(Test.class)
 				.available("JMX");
-		assertThat(message.toString()).isEqualTo("@Test JMX is available");
+		assertThat(message.toString()).isEqualTo("@test JMX is available");
 	}
 
 }

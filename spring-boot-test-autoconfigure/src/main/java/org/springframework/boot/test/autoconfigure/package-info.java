@@ -15,6 +15,6 @@
  */
 
 /**
- * Test auto-configuration support.
+ * test auto-configuration support.
  */
 package org.springframework.boot.test.autoconfigure;

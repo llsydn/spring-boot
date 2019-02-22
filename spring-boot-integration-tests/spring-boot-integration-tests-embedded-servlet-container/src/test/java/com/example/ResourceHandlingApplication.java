@@ -31,7 +31,7 @@ import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 
 /**
- * Test application for verifying an embedded container's static resource handling.
+ * test application for verifying an embedded container's static resource handling.
  *
  * @author Andy Wilkinson
  */

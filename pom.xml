@@ -6,6 +6,7 @@
 	<version>1.5.9.RELEASE</version>
 	<modules>
 		<module>spring-boot-analysis</module>
+		<module>spring-boot-imitate</module>
 	</modules>
 	<packaging>pom</packaging>
 	<name>Spring Boot Build</name>

@@ -49,7 +49,7 @@ import org.springframework.util.ReflectionUtils.FieldCallback;
  *
  *     private AbstractJsonTester&lt;ExampleObject&gt; json = //...
  *
- *     &#064;Test
+ *     &#064;test
  *     public void testWriteJson() {
  *         ExampleObject object = //...
  *         assertThat(json.write(object)).isEqualToJson("expected.json");

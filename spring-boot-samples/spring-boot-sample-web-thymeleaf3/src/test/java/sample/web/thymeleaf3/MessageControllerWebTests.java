@@ -40,7 +40,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
- * A Basic Spring MVC Test for the Sample Controller"
+ * A Basic Spring MVC test for the Sample Controller"
  *
  * @author Biju Kunjummen
  * @author Doo-Hwan, Kwak

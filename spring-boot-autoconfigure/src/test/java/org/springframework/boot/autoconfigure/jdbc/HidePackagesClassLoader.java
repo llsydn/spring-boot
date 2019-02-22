@@ -20,7 +20,7 @@ import java.net.URL;
 import java.net.URLClassLoader;
 
 /**
- * Test {@link URLClassLoader} that hides configurable packages. No class in one of those
+ * test {@link URLClassLoader} that hides configurable packages. No class in one of those
  * packages or sub-packages are visible.
  *
  * @author Stephane Nicoll

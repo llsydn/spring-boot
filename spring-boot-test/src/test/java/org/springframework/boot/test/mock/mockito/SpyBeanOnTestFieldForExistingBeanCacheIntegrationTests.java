@@ -29,7 +29,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.verify;
 
 /**
- * Test {@link SpyBean} on a test class field can be used to replace existing beans when
+ * test {@link SpyBean} on a test class field can be used to replace existing beans when
  * the context is cached. This test is identical to
  * {@link SpyBeanOnTestFieldForExistingBeanIntegrationTests} so one of them should trigger
  * application context caching.

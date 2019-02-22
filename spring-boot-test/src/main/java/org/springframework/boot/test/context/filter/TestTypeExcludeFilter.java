@@ -33,7 +33,7 @@ class TestTypeExcludeFilter extends TypeExcludeFilter {
 
 	private static final String[] CLASS_ANNOTATIONS = { "org.junit.runner.RunWith" };
 
-	private static final String[] METHOD_ANNOTATIONS = { "org.junit.Test" };
+	private static final String[] METHOD_ANNOTATIONS = { "org.junit.test" };
 
 	@Override
 	public boolean match(MetadataReader metadataReader,

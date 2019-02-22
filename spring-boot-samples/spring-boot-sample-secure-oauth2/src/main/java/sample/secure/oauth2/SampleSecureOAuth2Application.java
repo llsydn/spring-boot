@@ -67,7 +67,7 @@ import org.springframework.web.bind.annotation.RestController;
  * }
  * </pre>
  *
- * Test creating a new entry:
+ * test creating a new entry:
  *
  * <pre>
  * curl -i -H "Authorization: bearer [access token]" -H "Content-Type:application/json" localhost:8080/flights -X POST -d @flight.json

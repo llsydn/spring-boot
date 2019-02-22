@@ -76,7 +76,7 @@ public class MailProperties {
 	private String jndiName;
 
 	/**
-	 * Test that the mail server is available on startup.
+	 * test that the mail server is available on startup.
 	 */
 	private boolean testConnection;
 
