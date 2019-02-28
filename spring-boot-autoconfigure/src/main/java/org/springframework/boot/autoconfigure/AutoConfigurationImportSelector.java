@@ -83,6 +83,7 @@ public class AutoConfigurationImportSelector
 
 	private ResourceLoader resourceLoader;
 
+	// 加载出所有的自动装配的类list集合
 	@Override
 	public String[] selectImports(AnnotationMetadata annotationMetadata) {
 		if (!isEnabled(annotationMetadata)) {
@@ -93,7 +94,7 @@ public class AutoConfigurationImportSelector
 					.loadMetadata(this.beanClassLoader);
 			// 获取注解的属性
 			AnnotationAttributes attributes = getAttributes(annotationMetadata);
-			// 读取spring.factories属性文件中的数据
+			// 读取spring.factories属性文件中的数据（自动装配的类）
 			List<String> configurations = getCandidateConfigurations(annotationMetadata,
 					attributes);
 			// 删除重复的配置类
@@ -157,9 +158,13 @@ public class AutoConfigurationImportSelector
 	protected List<String> getCandidateConfigurations(AnnotationMetadata metadata,
 			AnnotationAttributes attributes) {
 		// 调用SpringFactoriesLoader的loadFactoryNames静态方法
-		// getSpringFactoriesLoaderFactoryClass方法返回的是EnableAutoConfiguration类对象
+		// getSpringFactoriesLoaderFactoryClass方法返回的是EnableAutoConfiguration类对象。
 		List<String> configurations = SpringFactoriesLoader.loadFactoryNames(
 				getSpringFactoriesLoaderFactoryClass(), getBeanClassLoader());
+
+		// 实际上就是根据类型去加载：获取类路径下spring.factories下key为EnableAutoConfiguration全限定名对应值
+		// SpringFactoriesLoader.loadFactoryNames(EnableAutoConfiguration.class, this.beanClassLoader);
+
 		Assert.notEmpty(configurations,
 				"No auto configuration classes found in META-INF/spring.factories. If you "
 						+ "are using a custom packaging, make sure that file is correct.");
