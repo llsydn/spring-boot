@@ -40,5 +40,8 @@ public class MyWebApplicationInitializer implements WebApplicationInitializer {
 		registration.setLoadOnStartup(1);
 		// 设置访问路径
 		registration.addMapping("/");
+
+		System.out.println("---------MyWebApplicationInitializer----------");
+
 	}
 }

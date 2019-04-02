@@ -81,6 +81,7 @@ public class TomcatEmbeddedServletContainer implements EmbeddedServletContainer 
 		Assert.notNull(tomcat, "Tomcat Server must not be null");
 		this.tomcat = tomcat;
 		this.autoStart = autoStart;
+		// 初始化启动tomcat
 		initialize();
 	}
 
@@ -96,6 +97,7 @@ public class TomcatEmbeddedServletContainer implements EmbeddedServletContainer 
 					removeServiceConnectors();
 
 					// Start the server to trigger initialization listeners
+					// 启动tomcat
 					this.tomcat.start();
 
 					// We can re-throw failure exception directly in the main thread

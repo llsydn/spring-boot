@@ -44,6 +44,9 @@ class SpringApplicationRunListeners {
 	}
 
 	public void starting() {
+		// 得到所有的SpringApplicationRunListener
+		// 其实就是一个EventPublishingRunListener
+		// 然后依次调用starting方法（例如：日志系统，自动配置...）
 		for (SpringApplicationRunListener listener : this.listeners) {
 			listener.starting();
 		}
