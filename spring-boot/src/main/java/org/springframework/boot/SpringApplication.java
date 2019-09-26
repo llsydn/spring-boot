@@ -245,9 +245,17 @@ public class SpringApplication {
 		if (sources != null && sources.length > 0) {
 			this.sources.addAll(Arrays.asList(sources));
 		}
+		//推断项目的类型：
+		//reactive,响应式编程。reactive容器（不是servlet了，即不能在tomcat中启动了）webflux
+		//none，普通java项目
+		//servlet，普通的j2ee，servlet项目
 		this.webEnvironment = deduceWebEnvironment();
-		// initializer 初始化器
-		// 默认：6个initializer（spring-boot-1.5.9.RELEASE.jar， spring-boot-autoconfigure-1.5.9.RELEASE.jar）
+
+		// 最核心的代码（重点）
+
+		// initializer 初始化器 （从spring.factories文件拿）
+
+		// 默认：6个initializer（spring-boot， spring-boot-autoconfigure）
 		// 初始化器(initializers)是Spring Boot通过读取每个jar包下的/META-INF/spring.factories文件中的配置获取的。
 		// 每一个initailizer都是一个实现了ApplicationContextInitializer接口的实例。
 		// ApplicationContextInitializer是Spring IOC容器中提供的一个接口：
@@ -255,13 +263,16 @@ public class SpringApplication {
 		setInitializers((Collection) getSpringFactoriesInstances(
 				ApplicationContextInitializer.class));
 
-		// listener 监听器
-		// 监听器是一个专门用于对其他对象身上发生的事件或状态改变进行监听和相应处理的对象，当被监视的对象发生情况时，立即采取相应的行动
+		// listener 监听器（从spring.factories文件拿）
+
+		// 默认10个，监听器是一个专门用于对其他对象身上发生的事件或状态改变进行监听和相应处理的对象，当被监视的对象发生情况时，立即采取相应的行动
 		// 从spring.factories文件中找出key为ApplicationListener的类并实例化后设置到SpringApplication的listeners属性中。
 		// 这个过程就是找出所有的应用程序事件监听器
 		// 这里的应用程序事件(ApplicationEvent)
 		// 有应用程序启动事件(ApplicationStartedEvent)，失败事件(ApplicationFailedEvent)，准备事件(ApplicationPreparedEvent)等。
 		setListeners((Collection) getSpringFactoriesInstances(ApplicationListener.class));
+
+		// 推断主类（有可能在内部类加了@SpringBootApplication注解，获取其他类加了该注解）
 		this.mainApplicationClass = deduceMainApplicationClass();
 	}
 
@@ -276,6 +287,7 @@ public class SpringApplication {
 
 	private Class<?> deduceMainApplicationClass() {
 		try {
+			//通过抛异常，拿到栈，那个类有main方法
 			StackTraceElement[] stackTrace = new RuntimeException().getStackTrace();
 			for (StackTraceElement stackTraceElement : stackTrace) {
 				if ("main".equals(stackTraceElement.getMethodName())) {
@@ -296,38 +308,54 @@ public class SpringApplication {
 	 * @return a running {@link ApplicationContext}
 	 */
 	public ConfigurableApplicationContext run(String... args) {
-		StopWatch stopWatch = new StopWatch(); // 构造一个任务执行观察器
-		stopWatch.start(); // 开始执行，记录开始时间
+		// 构造一个任务执行观察器
+		StopWatch stopWatch = new StopWatch();
+		// 开始执行，记录开始时间
+		stopWatch.start();
 		ConfigurableApplicationContext context = null;
 		FailureAnalyzers analyzers = null;
 		configureHeadlessProperty();
-		SpringApplicationRunListeners listeners = getRunListeners(args); //获取SpringApplicationRunListeners,内部只有一个EventPublishingRunListener
-		// 上面分析过，会封装成SpringApplicationEvent事件然后广播出去给SpringApplication中的listeners所监听
-		// 这里接受ApplicationStartedEvent事件的listener会执行相应的操作
+
+		// 获取SpringApplicationRunListeners,内部只有一个EventPublishingRunListener（spring.factories）
+		SpringApplicationRunListeners listeners = getRunListeners(args);
+		// 发布一个“ApplicationStartedEvent”事件（由广播器发布）（一）
 		listeners.starting();
+
 		try {
 			// 构造一个应用程序参数持有类
 			ApplicationArguments applicationArguments = new DefaultApplicationArguments(
 					args);
+
 			// 准备环境
+			// 发布一个“ApplicationEnvironmentPreparedEvent”事件（由广播器发布）（二）
 			ConfigurableEnvironment environment = prepareEnvironment(listeners,
 					applicationArguments);
+
 			// 控制台打印Banner
 			Banner printedBanner = printBanner(environment);
+
 			// 创建Spring容器
 			context = createApplicationContext();
+
 			// 异常处理机制，用于分析故障并提供可以显示给用户的诊断信息。
 			analyzers = new FailureAnalyzers(context);
+
+			// 发布一个“ApplicationPreparedEvent”事件（由广播器发布）（三）
 			// 准备context，prepareContext方法中将会执行每个initializers的逻辑
-			prepareContext(context, environment, listeners, applicationArguments,
-					printedBanner);
+			prepareContext(context, environment, listeners, applicationArguments, printedBanner);
+
+			// 刷新spring容器（四、五）
 			refreshContext(context);
-			// 容器创建完成之后执行额外一些操作
+
+			// 容器创建完成之后执行额外一些操作，执行CommandLineRunner，ApplicationRunner
 			afterRefresh(context, applicationArguments);
-			// 广播出ApplicationReadyEvent事件给相应的监听器执行
+
+			// 发布一个“ApplicationReadyEvent”事件（由广播器发布）（六）
 			listeners.finished(context, null);
+
 			// 执行结束，记录执行时间
 			stopWatch.stop();
+
 			if (this.logStartupInfo) {
 				new StartupInfoLogger(this.mainApplicationClass)
 						.logStarted(getApplicationLog(), stopWatch);
@@ -414,6 +442,8 @@ public class SpringApplication {
 			Class<?>[] parameterTypes, Object... args) {
 		ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
 		// Use names and ensure unique to protect against duplicates
+
+		//拿到所有META-INF/spring.factories文件的，type类型的数据
 		Set<String> names = new LinkedHashSet<String>(
 				SpringFactoriesLoader.loadFactoryNames(type, classLoader));
 		List<T> instances = createSpringFactoriesInstances(type, parameterTypes,

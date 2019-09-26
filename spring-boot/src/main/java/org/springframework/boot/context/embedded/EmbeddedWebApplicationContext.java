@@ -119,6 +119,7 @@ public class EmbeddedWebApplicationContext extends GenericWebApplicationContext 
 	@Override
 	public final void refresh() throws BeansException, IllegalStateException {
 		try {
+			// 发布一个“EmbeddedServletContainerInitializedEvent”事件（由广播器发布）（四）
 			super.refresh();
 		}
 		catch (RuntimeException ex) {
@@ -142,6 +143,7 @@ public class EmbeddedWebApplicationContext extends GenericWebApplicationContext 
 
 	@Override
 	protected void finishRefresh() {
+		// 发布一个“ContextRefreshedEvent”事件（由广播器发布）（五）
 		super.finishRefresh();
 		// 调用startEmbeddedServletContainer方法
 		EmbeddedServletContainer localContainer = startEmbeddedServletContainer();
