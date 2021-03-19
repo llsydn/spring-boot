@@ -14,7 +14,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<springframework.version>4.3.13.RELEASE</springframework.version>
-		<tomcat.version>8.5.23</tomcat.version>
+		<tomcat.version>10.0.4</tomcat.version>
 	</properties>
 
 	<dependencies>
